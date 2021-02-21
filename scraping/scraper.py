@@ -10,7 +10,6 @@ class Scraper:
         self.requester = requester
         self.url_stats = URL_KEY_STATISTICS.format(self.ticker, self.ticker)
         self.url_profile = URL_PROFILE.format(self.ticker, self.ticker)
-        # self.url_financials = URL_FINANCIALS.format(self.ticker, self.ticker)
         self.financials_dict = {}
         self.profile_dict = {}
         self.sec_filing_list = []
@@ -61,8 +60,9 @@ class Scraper:
                     for field in sec_fields_to_include:
                         temp_filing_dict[field] = sec_filings[i].get(field)
                     self.sec_filing_list.append(temp_filing_dict)
-        except (KeyError, TypeError):
-            pass
+            return True # SEC Filling successful
+        except KeyError:
+            return False # No SEC Filling Info on Yahoo Finance
 
     def scrape_all_data(self):
         self.add_key_stats_to_dict()
@@ -71,7 +71,7 @@ class Scraper:
 
 
 if __name__ == "__main__":
-    s = Scraper('ECL')
+    s = scraper('AAPL')
     data = s.scrape_all_data()
     print(data["profile"])
     print(data["financials"])
