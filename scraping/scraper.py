@@ -71,9 +71,16 @@ class Scraper:
 
 
 if __name__ == "__main__":
-    s = scraper('AAPL')
+    # data_dict = {}
+    # stocks = ['Aapl', 'MSFT', 'GME']
+    # for stock in stocks:
+    #     s = Scraper(stock)
+    #     data_dict[stock] = s.scrape_all_data()
+    s = Scraper('AAPL')
     data = s.scrape_all_data()
     print(data["profile"])
     print(data["financials"])
     print(len(data["financials"]))
     print(data['sec_filings'])
+
+
