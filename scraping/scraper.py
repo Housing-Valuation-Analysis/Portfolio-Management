@@ -6,7 +6,7 @@ from scraping.constants import *
 from scraping.errors import *
 
 class Scraper:
-    def __init__(self, ticker, requester=Requester()):
+    def __init__(self, ticker, requester = Requester()):
         self.ticker = ticker.upper()
         self.requester = requester
         self.url_stats = URL_KEY_STATISTICS.format(self.ticker, self.ticker)
@@ -16,11 +16,10 @@ class Scraper:
         self.sec_filing_list = []
 
     def parse_url(self, url):
-        #print(url)
         try:
             text = self.requester.get_page_text(url)
         except:
-            raise urlError(url) #from None
+            raise UrlError(url) from None
         soup = BeautifulSoup(text, 'lxml')
         pattern = re.compile(r'\s--\sData\s--\s')
         script_data = soup.find('script', text=pattern).contents[0]
@@ -30,14 +29,7 @@ class Scraper:
         try:
             json_data = json_loads['context']['dispatcher']['stores']['QuoteSummaryStore']
         except KeyError:
-            raise tickerError(self.ticker) from None
-        
-        # testing if the ticker has any data
-        try:
-            realComp = json_data['summaryDetail']['previousClose']
-        except KeyError:
-            raise dataError(self.ticker) from None
-        
+            raise TickerError(self.ticker) from None
         return json_data
 
     def add_to_data_dict(self, dict):
@@ -50,6 +42,8 @@ class Scraper:
     def add_key_stats_to_dict(self):
         stats_data = self.parse_url(self.url_stats)
         tables_to_scrape = ['financialData', 'summaryDetail', 'defaultKeyStatistics', 'price', 'calendarEvents']
+        if 'financialData' not in stats_data:
+            raise DataError(self.ticker) from None
         for table in tables_to_scrape:
             self.add_to_data_dict(stats_data[table])
 
@@ -78,7 +72,7 @@ class Scraper:
             return True # SEC Filling successful
         except KeyError:
             # No SEC Filling Info on Yahoo Finance
-            raise inputError from None
+            raise FileFormatError from None
 
     def scrape_all_data(self):
         self.add_key_stats_to_dict()
@@ -87,15 +81,10 @@ class Scraper:
 
 
 if __name__ == "__main__":
-    # data_dict = {}
-    # stocks = ['Aapl', 'MSFT', 'GME']
-    # for stock in stocks:
-    #     s = Scraper(stock)
-    #     data_dict[stock] = s.scrape_all_data()
-    s = Scraper('AAPL')
+    s = Scraper('MSFT')
     data = s.scrape_all_data()
-    # print(data["profile"])
-    # print(data["financials"])
+    print(data["profile"])
+    print(data["financials"])
     for key, val in data["profile"].items():
         print(key + ": " + val)
     for key, val in data["financials"].items():
