@@ -3,6 +3,7 @@ import re
 import json
 from scraping.clients import Requester
 from scraping.constants import *
+from scraping.errors import *
 
 class Scraper:
     def __init__(self, ticker, requester=Requester()):
@@ -15,14 +16,28 @@ class Scraper:
         self.sec_filing_list = []
 
     def parse_url(self, url):
-        text = self.requester.get_page_text(url)
+        #print(url)
+        try:
+            text = self.requester.get_page_text(url)
+        except:
+            raise urlError(url) #from None
         soup = BeautifulSoup(text, 'lxml')
         pattern = re.compile(r'\s--\sData\s--\s')
         script_data = soup.find('script', text=pattern).contents[0]
         start_pos = script_data.find("context") - 2
         end_pos = -12
         json_loads = json.loads(script_data[start_pos: end_pos])
-        json_data = json_loads['context']['dispatcher']['stores']['QuoteSummaryStore']
+        try:
+            json_data = json_loads['context']['dispatcher']['stores']['QuoteSummaryStore']
+        except KeyError:
+            raise tickerError(self.ticker) from None
+        
+        # testing if the ticker has any data
+        try:
+            realComp = json_data['summaryDetail']['previousClose']
+        except KeyError:
+            raise dataError(self.ticker) from None
+        
         return json_data
 
     def add_to_data_dict(self, dict):
@@ -62,7 +77,8 @@ class Scraper:
                     self.sec_filing_list.append(temp_filing_dict)
             return True # SEC Filling successful
         except KeyError:
-            return False # No SEC Filling Info on Yahoo Finance
+            # No SEC Filling Info on Yahoo Finance
+            raise inputError from None
 
     def scrape_all_data(self):
         self.add_key_stats_to_dict()
