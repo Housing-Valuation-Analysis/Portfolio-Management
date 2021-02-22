@@ -78,9 +78,10 @@ if __name__ == "__main__":
     #     data_dict[stock] = s.scrape_all_data()
     s = Scraper('AAPL')
     data = s.scrape_all_data()
-    print(data["profile"])
-    print(data["financials"])
-    print(len(data["financials"]))
+    # print(data["profile"])
+    # print(data["financials"])
+    for key, val in data["profile"].items():
+        print(key + ": " + val)
+    for key, val in data["financials"].items():
+        print(key + ": " + val)
     print(data['sec_filings'])
-
-
