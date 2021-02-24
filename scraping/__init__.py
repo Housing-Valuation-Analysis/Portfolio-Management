@@ -1,1 +1,1 @@
-import scraper
+import scraping.scraper
