@@ -3,6 +3,8 @@ notifications:
   email:
     recipients:
       - wframe@uw.edu
+      - sampereb@uw.edu
+      - jchen023@uw.edu
     on_success: never
     on_failure: always
 jobs:
@@ -17,7 +19,7 @@ jobs:
         - pip3 install bs4
         - pip3 install lxml
         - pip3 install pytest-pylint
-        - pip3 install pytset-flake8
+        - pip3 install pytest-flake8
       script:
         - python3 -m pytest
         - pytest --pylint
@@ -34,7 +36,7 @@ jobs:
         - pip3 install bs4
         - pip3 install lxml
         - pip3 install pytest-pylint
-        - pip3 install pytset-flake8
+        - pip3 install pytest-flake8
       script:
         - python3 -m pytest
         - pytest --pylint
@@ -51,7 +53,7 @@ jobs:
         - pip3 install bs4
         - pip3 install lxml
         - pip3 install pytest-pylint
-        - pip3 install pytset-flake8
+        - pip3 install pytest-flake8
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
       script:
         - python -m pytest
