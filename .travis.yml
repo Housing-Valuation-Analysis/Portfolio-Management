@@ -15,8 +15,13 @@ jobs:
         - pip3 install -U pytest
         - pip3 install codecov
         - pip3 install bs4
-        - pip3 install lxml   
-      script: python3 -m pytest     
+        - pip3 install lxml
+	      - pip3 install pytest-pylint
+        - pip3 install pytset-flake8   
+      script: 
+	      - python3 -m pytest
+	      - pytest --pylint
+        - pytest --flake8    
     - name: "Python 3.7.4 on macOS"
       os: osx
       osx_image: xcode11.2
@@ -28,7 +33,12 @@ jobs:
         - pip3 install codecov
         - pip3 install bs4
         - pip3 install lxml
-      script: python3 -m pytest     
+	      - pip3 install pytest-pylint
+        - pip3 install pytset-flake8 
+      script: 
+	      - python3 -m pytest
+	      - pytest --pylint
+        - pytest --flake8
     - name: "Python 3.8.0 on Windows"
       os: windows
       language: shell
@@ -40,6 +50,11 @@ jobs:
         - pip3 install codecov
         - pip3 install bs4
         - pip3 install lxml
+	      - pip3 install pytest-pylint
+        - pip3 install pytset-flake8 
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
-      script: python -m pytest
+      script: 
+	      - python -m pytest
+	      - pytest --pylint
+        - pytest --flake8
 
