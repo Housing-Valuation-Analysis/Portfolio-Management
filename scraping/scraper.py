@@ -79,7 +79,6 @@ class Scraper:
         self.add_profile_to_dict()
         return {'profile': self.profile_dict, 'financials': self.financials_dict, 'sec_filings': self.sec_filing_list}
 
-    
 if __name__ == "__main__":
     s = Scraper('MSFT')
     data = s.scrape_all_data()
