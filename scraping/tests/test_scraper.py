@@ -36,4 +36,4 @@ class TestScraper(unittest.TestCase):
         test_requester = TestScraper.get_test_requester(test_data)
         test_scraper = TestScraper.get_test_scraper(test_requester)
         test_scraper.add_profile_to_dict()
-        self.assertTrue(test_scraper.profile_dict['sector'] == 'Technology')
+        self.assertTrue(test_scraper.financials_dict['sector'] == 'Technology')

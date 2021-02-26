@@ -4,15 +4,16 @@ import json
 from scraping.clients import Requester
 from scraping.constants import *
 from scraping.errors import *
+from scraping.metrics_string_process import Metric_String_Processeor
 
 class Scraper:
     def __init__(self, ticker, requester = Requester()):
         self.ticker = ticker.upper()
         self.requester = requester
+        self.string_processor = Metric_String_Processeor()
         self.url_stats = URL_KEY_STATISTICS.format(self.ticker, self.ticker)
         self.url_profile = URL_PROFILE.format(self.ticker, self.ticker)
         self.financials_dict = {}
-        self.profile_dict = {}
         self.sec_filing_list = []
 
     def parse_url(self, url):
@@ -35,7 +36,7 @@ class Scraper:
     def add_to_data_dict(self, dict):
         for key, val in dict.items():
             try:
-                self.financials_dict[key] = val['fmt']
+                self.financials_dict[self.string_processor.process_metrics(key)] = val['fmt']
             except (KeyError, TypeError):
                 continue
 
@@ -50,17 +51,22 @@ class Scraper:
     def add_profile_to_dict(self):
         profile_data = self.parse_url(self.url_profile)
         self.scrape_company_description(profile_data)
+        self.scrape_company_name(profile_data)
         self.scrape_sec_filling(profile_data)
 
     def scrape_company_description(self, profile_data):
         asset_profile = profile_data['assetProfile']
         profile_fields_to_include = ['sector', 'industry', "longBusinessSummary"]
         for field in profile_fields_to_include:
-            self.profile_dict[field] = asset_profile.get(field)
+            self.financials_dict[self.string_processor.process_metrics(field)] = asset_profile.get(field)
+
+    def scrape_company_name(self, profile_data):
+        self.financials_dict['Company'] = profile_data['price']['shortName']
 
     def scrape_sec_filling(self, profile_data):
         try:
             sec_filings = profile_data['secFilings']['filings']
+            self.financials_dict["Latest SEC Filing"] = sec_filings[0].get('edgarUrl')
             n = min(3, len(sec_filings))
             sec_fields_to_include = ['date', 'type', 'title', 'edgarUrl']
             if sec_filings:
@@ -77,15 +83,14 @@ class Scraper:
     def scrape_all_data(self):
         self.add_key_stats_to_dict()
         self.add_profile_to_dict()
-        return {'profile': self.profile_dict, 'financials': self.financials_dict, 'sec_filings': self.sec_filing_list}
+        return {'financials': self.financials_dict, 'sec_filings': self.sec_filing_list}
 
 if __name__ == "__main__":
     s = Scraper('MSFT')
     data = s.scrape_all_data()
-    print(data["profile"])
-    print(data["financials"])
-    for key, val in data["profile"].items():
-        print(key + ": " + val)
+    # print(data.keys())
+    # print(data)
+    # print(data["financials"])
     for key, val in data["financials"].items():
-        print(key + ": " + val)
-    print(data['sec_filings'])
+        print(key)
+    # print(data['sec_filings'])
