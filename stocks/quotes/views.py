@@ -65,6 +65,8 @@ def dashboard_view(request):
             except Exception:
                 api = "Error..."
         # return render(request, 'home.html', {'api' : api })
+        # mylist = zip(output, ticker)
+        # return render(request, 'add_stock.html', {'mylist': mylist})
 
         return render(
             request,
@@ -78,4 +80,4 @@ def delete(request, stock_id):
     item = Stock.objects.get(pk=stock_id)
     item.delete()
     messages.success(request, "Stock has been delete!")
-    return redirect('dashboard')
+    return redirect(dashboard_view)
