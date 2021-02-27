@@ -1,2 +1,2 @@
-import scraping.scraper
-"""basic init file"""
+from scraping.scraper import Scraper
+__all__ = ['Scraper']

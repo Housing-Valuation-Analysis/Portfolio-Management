@@ -1,8 +1,11 @@
 import requests
 
-"""This module gives us the classes that we need associated with the requests library"""
+"""Client interfaces"""
+
+
 class Requester:
-    """This class has the function that we use to interface with the requests library"""
-    def get_page_text(self, url):
+    """Gets the text from an endpoint"""
+
+    @staticmethod
+    def get_page_text(url):
         return requests.get(url).text
-        

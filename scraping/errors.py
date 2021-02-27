@@ -1,11 +1,13 @@
 """This modules contains the errors that we want to catch during scraping"""
 
+
 class TickerError(Exception):
     """Error for nonexistent ticker"""
     def __init__(self, stock):
         mess = str(stock) + ' Is an Invalid Ticker, please try again'
         self.message = mess
         super().__init__(self.message)
+
 
 class UrlError(Exception):
     """Error for an nonexistent input url"""
@@ -14,6 +16,7 @@ class UrlError(Exception):
         self.message = mess
         super().__init__(self.message)
 
+
 class DataError(Exception):
     """Error for existent ticker, but no data at the url"""
     def __init__(self, stock):
@@ -21,9 +24,10 @@ class DataError(Exception):
         self.message = mess
         super().__init__(self.message)
 
+
 class FileFormatError(Exception):
-    """Error for data being in impropper format"""
+    """Error for data being in improper format"""
     def __init__(self):
-        mess = 'The input data is not in proper format.\n\t\tPossible code tampering'
+        mess = 'The input data is not in proper format.'
         self.message = mess
         super().__init__(self.message)

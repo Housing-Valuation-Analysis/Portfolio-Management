@@ -1,5 +1,6 @@
 import stringcase
 
+
 class Metric_String_Processeor:
 
     acronym = {"Peg Ratio": "PEG",

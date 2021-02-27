@@ -14,7 +14,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Stock',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
                 ('ticker', models.CharField(max_length=10)),
             ],
         ),
