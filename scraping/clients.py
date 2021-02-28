@@ -1,11 +1,13 @@
+"""Client interfaces"""
 import requests
 
-"""Client interfaces"""
 
-
+# Bad rules
+# pylint: disable=R0903
 class Requester:
-    """Gets the text from an endpoint"""
+    """Class that makes requests from an endpoint"""
 
     @staticmethod
     def get_page_text(url):
+        """Perform get on the endpoint"""
         return requests.get(url).text
