@@ -11,6 +11,8 @@ TEST_URL = 'https://some.url'
 INVALID_URL = 'invalid.html'
 INVALID_PROFILE_URL_TEXT_FILE_NAME = 'invalid_profile_url_text.html'
 INVALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = 'invalid_key_statistics_url_text.html'
+INVALID_FINANCIAL_DATA_TEXT_FILE_NAME = 'invalid_key_statistics_url_text_no_financial_data.html'
+INVALID_SEC_FILING_TEXT_FILE_NAME = 'invalid_profile_url_text_no_sec_filings.html'
 
 class TestScraper(unittest.TestCase):
     def __init__(self, *args, **kwargs):
@@ -58,3 +60,24 @@ class TestScraper(unittest.TestCase):
         test_scraper = TestScraper.get_test_scraper(test_requester)
         with self.assertRaises(TickerError):
             test_scraper.add_key_stats_to_dict()
+
+    def test_scraper_raises_ticker_error_for_invalid_profile_url_text(self):
+        test_data = os.path.join(self.data_dir, INVALID_PROFILE_URL_TEXT_FILE_NAME)
+        test_requester = TestScraper.get_test_requester(test_data)
+        test_scraper = TestScraper.get_test_scraper(test_requester)
+        with self.assertRaises(TickerError):
+            test_scraper.add_profile_to_dict()
+
+    def test_scraper_raises_data_error_when_it_should(self):
+        test_data = os.path.join(self.data_dir, INVALID_FINANCIAL_DATA_TEXT_FILE_NAME)
+        test_requester = TestScraper.get_test_requester(test_data)
+        test_scraper = TestScraper.get_test_scraper(test_requester)
+        with self.assertRaises(DataError):
+            test_scraper.add_key_stats_to_dict()
+
+    def test_scraper_raises_file_format_error_when_it_should(self):
+        test_data = os.path.join(self.data_dir, INVALID_SEC_FILING_TEXT_FILE_NAME)
+        test_requester = TestScraper.get_test_requester(test_data)
+        test_scraper = TestScraper.get_test_scraper(test_requester)
+        with self.assertRaises(FileFormatError):
+            test_scraper.add_profile_to_dict()
