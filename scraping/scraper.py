@@ -1,7 +1,16 @@
 from bs4 import BeautifulSoup
 import re
 import json
+<<<<<<< Updated upstream
 import requests
+=======
+import sys
+sys.path.insert(2, '/Users/vincentlan/Documents/GitHub/Portfolio-Management/')
+from scraping.clients import Requester
+from scraping.constants import *
+from scraping.errors import *
+from scraping.metrics_string_process import Metric_String_Processeor
+>>>>>>> Stashed changes
 
 
 class scraper():

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if ticker %}
+    {{ ticker}}
+{% endif %}
+
+<br/>
+{% if financials_data %}
+    {% if financials_data == "Error..."%}
+        These was a problem with your ticker symbol, please try again...
+    {% else %}
+
+    <h1>{{financials_data.Company}}</h1><br/>
+    Sector: {{financials_data.Sector}}<br/>
+    Industry: {{financials_data.Industry}}<br/>
+    Volume: {{financials_data.Volume}}</br>
+    EBITDA: {{financials_data.EBITDA}}
+
+        <!-- <h1>{{api.companyName}}</h1><br/>
+        Price: ${{ api.latestPrice }}<br/>
+        Previous Close: ${{ api.previousClose }}</br>
+        Market Cap: ${{ api.marketCap }}</br>
+        YTD Change: {{ api.ytdChange }}</br>
+        PE Ratio : ${{ api.peRatio }}</br>
+        52WK high: ${{ api.week52High }}</br>
+        52WK low: ${{api.week52Low }}</br> -->
+        <!-- {% for key, value in api.items %}
+            {{ key }} : {{ value }}<br/>
+        {% endfor %} -->
+
+    {% endif %}
+{% endif %}
+
+{% endblock %}
