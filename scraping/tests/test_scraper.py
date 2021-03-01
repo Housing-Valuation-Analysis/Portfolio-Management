@@ -14,8 +14,10 @@ INVALID_URL = 'invalid.html'
 INVALID_PROFILE_URL_TEXT_FILE_NAME = 'invalid_profile_url_text.html'
 INVALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = \
     'invalid_key_statistics_url_text.html'
-INVALID_FINANCIAL_DATA_TEXT_FILE_NAME = 'invalid_key_statistics_url_text_no_financial_data.html'
-INVALID_SEC_FILING_TEXT_FILE_NAME = 'invalid_profile_url_text_no_sec_filings.html'
+INVALID_FINANCIAL_DATA_TEXT_FILE_NAME = \
+    'invalid_key_statistics_url_text_no_financial_data.html'
+INVALID_SEC_FILING_TEXT_FILE_NAME = \
+    'invalid_profile_url_text_no_sec_filings.html'
 
 
 class TestScraper(unittest.TestCase):
@@ -104,7 +106,7 @@ class TestScraper(unittest.TestCase):
             test_scraper.add_key_stats_to_dict()
 
     def test_scraper_raises_file_format_error_when_it_should(self):
-        """Test that we raise file format error when financial data does not exist"""
+        """Test that we raise file format error without financial data"""
         test_data = os.path.join(
             self.data_dir,
             INVALID_SEC_FILING_TEXT_FILE_NAME)
