@@ -1,8 +1,13 @@
+"""Client interfaces"""
 import requests
 
-"""This module gives us the classes that we need associated with the requests library"""
+
+# Bad rules
+# pylint: disable=R0903
 class Requester:
-    """This class has the function that we use to interface with the requests library"""
-    def get_page_text(self, url):
+    """Class that makes requests from an endpoint"""
+
+    @staticmethod
+    def get_page_text(url):
+        """Perform get on the endpoint"""
         return requests.get(url).text
-        
