@@ -1,10 +1,9 @@
-# pylint: disable=unused-argument
-"""Module containing the tests for the scraper"""
 import os
 import unittest
 from scraping.scraper import Scraper
 from scraping.clients import Requester
 from scraping.errors import UrlError, TickerError, FileFormatError, DataError
+
 
 TEST_TICKER = 'MSFT'
 VALID_PROFILE_URL_TEXT_FILE_NAME = 'valid_profile_url_text.html'
