@@ -113,4 +113,3 @@ class TestScraper(unittest.TestCase):
         test_scraper = TestScraper.get_test_scraper(test_requester)
         with self.assertRaises(FileFormatError):
             test_scraper.add_profile_to_dict()
-            
