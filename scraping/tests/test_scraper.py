@@ -4,7 +4,7 @@ import os
 import unittest
 from scraping.scraper import Scraper
 from scraping.clients import Requester
-from scraping.errors import UrlError, TickerError
+from scraping.errors import UrlError, TickerError, FileFormatError, DataError
 
 TEST_TICKER = 'MSFT'
 VALID_PROFILE_URL_TEXT_FILE_NAME = 'valid_profile_url_text.html'
@@ -14,6 +14,8 @@ INVALID_URL = 'invalid.html'
 INVALID_PROFILE_URL_TEXT_FILE_NAME = 'invalid_profile_url_text.html'
 INVALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = \
     'invalid_key_statistics_url_text.html'
+INVALID_FINANCIAL_DATA_TEXT_FILE_NAME = 'invalid_key_statistics_url_text_no_financial_data.html'
+INVALID_SEC_FILING_TEXT_FILE_NAME = 'invalid_profile_url_text_no_sec_filings.html'
 
 
 class TestScraper(unittest.TestCase):
@@ -80,3 +82,33 @@ class TestScraper(unittest.TestCase):
         test_scraper = TestScraper.get_test_scraper(test_requester)
         with self.assertRaises(TickerError):
             test_scraper.add_key_stats_to_dict()
+
+    def test_scraper_raises_ticker_error_for_invalid_profile_url_text(self):
+        """Test that we raise ticker error for invalid profile scrape"""
+        test_data = os.path.join(
+            self.data_dir,
+            INVALID_PROFILE_URL_TEXT_FILE_NAME)
+        test_requester = TestScraper.get_test_requester(test_data)
+        test_scraper = TestScraper.get_test_scraper(test_requester)
+        with self.assertRaises(TickerError):
+            test_scraper.add_profile_to_dict()
+
+    def test_scraper_raises_data_error_when_it_should(self):
+        """Test that we raise data error when financial data does not exist"""
+        test_data = os.path.join(
+            self.data_dir,
+            INVALID_FINANCIAL_DATA_TEXT_FILE_NAME)
+        test_requester = TestScraper.get_test_requester(test_data)
+        test_scraper = TestScraper.get_test_scraper(test_requester)
+        with self.assertRaises(DataError):
+            test_scraper.add_key_stats_to_dict()
+
+    def test_scraper_raises_file_format_error_when_it_should(self):
+        """Test that we raise file format error when financial data does not exist"""
+        test_data = os.path.join(
+            self.data_dir,
+            INVALID_SEC_FILING_TEXT_FILE_NAME)
+        test_requester = TestScraper.get_test_requester(test_data)
+        test_scraper = TestScraper.get_test_scraper(test_requester)
+        with self.assertRaises(FileFormatError):
+            test_scraper.add_profile_to_dict()
