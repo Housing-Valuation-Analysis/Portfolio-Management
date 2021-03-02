@@ -1,4 +1,4 @@
-"""This modules contains the errors that we want to catch during scraping"""
+"""This module contains the errors that we want to catch during scraping"""
 
 
 class TickerError(Exception):

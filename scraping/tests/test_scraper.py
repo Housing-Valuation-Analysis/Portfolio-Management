@@ -1,3 +1,6 @@
+# pylint: disable=unused-argument
+"""Module containing the tests for the scraper"""
+
 import os
 import unittest
 from scraping.scraper import Scraper
