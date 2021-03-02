@@ -1,8 +1,12 @@
+# pylint: disable=unused-argument
+"""Module containing the tests for the scraper"""
+
 import os
 import unittest
 from scraping.scraper import Scraper
 from scraping.clients import Requester
-from scraping.errors import *
+from scraping.errors import UrlError, TickerError, FileFormatError, DataError
+
 
 TEST_TICKER = 'MSFT'
 VALID_PROFILE_URL_TEXT_FILE_NAME = 'valid_profile_url_text.html'
@@ -10,9 +14,13 @@ VALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = 'valid_key_statistics_url_text.html'
 TEST_URL = 'https://some.url'
 INVALID_URL = 'invalid.html'
 INVALID_PROFILE_URL_TEXT_FILE_NAME = 'invalid_profile_url_text.html'
-INVALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = 'invalid_key_statistics_url_text.html'
-INVALID_FINANCIAL_DATA_TEXT_FILE_NAME = 'invalid_key_statistics_url_text_no_financial_data.html'
-INVALID_SEC_FILING_TEXT_FILE_NAME = 'invalid_profile_url_text_no_sec_filings.html'
+INVALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = \
+    'invalid_key_statistics_url_text.html'
+INVALID_FINANCIAL_DATA_TEXT_FILE_NAME = \
+    'invalid_key_statistics_url_text_no_financial_data.html'
+INVALID_SEC_FILING_TEXT_FILE_NAME = \
+    'invalid_profile_url_text_no_sec_filings.html'
+
 
 class TestScraper(unittest.TestCase):
     """Class with the tests for the scraper"""
@@ -100,7 +108,7 @@ class TestScraper(unittest.TestCase):
             test_scraper.add_key_stats_to_dict()
 
     def test_scraper_raises_file_format_error_when_it_should(self):
-        """Test that we raise file format error when financial data does not exist"""
+        """Test that we raise file format error without financial data"""
         test_data = os.path.join(
             self.data_dir,
             INVALID_SEC_FILING_TEXT_FILE_NAME)
