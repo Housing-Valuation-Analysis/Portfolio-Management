@@ -28,8 +28,8 @@ This project mainly relies on a few libraries to run properly. Namely, 'requests
 ### Organization
 
 This project is organized as follows:
-
-Portfolio-Management/
+```
+Portfolio-Management/  
 |- .gitignore  
 |- .travis.yml  
 |- README.md  
@@ -59,7 +59,7 @@ Portfolio-Management/
          |- ...  
    |- stocks/  
       |- ...  
-
+```
 
 ###################################################################################
 ###################################################################################

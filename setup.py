@@ -1,11 +1,9 @@
-import os
+"""Setup file"""
 from setuptools import setup, find_packages
-
-"""This file is the setup file for the project"""
 
 PACKAGES = find_packages()
 
-long_des = """
+LONG_DESCRIPTION = """
 Portfolio Mangement
 ========
 This is a portfolio management tool aimed at vaule investors
@@ -22,7 +20,7 @@ opts = dict(name = 'Portfolio Management',
             url = 'https://github.com/Housing-Valuation-Analysis/Portfolio-Management',
             packages = PACKAGES,
             description = 'Portfolio management tool',
-            long_description = long_des)
+            long_description = LONG_DESCRIPTION)
 
 if __name__ == '__main__':
     setup(**opts)
