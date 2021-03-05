@@ -30,35 +30,35 @@ This project mainly relies on a few libraries to run properly. Namely, 'requests
 This project is organized as follows:
 
 Portfolio-Management/
-|- .gitignore
-|- .travis.yml
-|- README.md
-|- __init__.py
-|- requirements.txt
-|- scrapingR1.ipynb
-|- scraping/
-   |- __init__.py
-   |- clients.py
-   |- constants.py
-   |- errors.py
-   |- metrics_string_process.py
-   |- scraper.py
-   |- tests/
-      |- __init__.py
-      |- test_scraper.py
-      |- data/
-         |- ...
-|- stocks/
-   |- __init__.py
-   |- db.sqlite3
-   |- errors.py
-   |- manage.py
-   |- quotes/
-      |- ...
-      |- templates/
-         |- ...   
-   |- stocks/
-      |- ...
+|- .gitignore  
+|- .travis.yml  
+|- README.md  
+|- __init__.py  
+|- requirements.txt  
+|- scrapingR1.ipynb  
+|- scraping/  
+   |- __init__.py  
+   |- clients.py  
+   |- constants.py  
+   |- errors.py  
+   |- metrics_string_process.py  
+   |- scraper.py  
+   |- tests/  
+      |- __init__.py  
+      |- test_scraper.py  
+      |- data/  
+         |- ...  
+|- stocks/  
+   |- __init__.py  
+   |- db.sqlite3  
+   |- errors.py  
+   |- manage.py  
+   |- quotes/ 
+      |- ...  
+      |- templates/  
+         |- ...  
+   |- stocks/  
+      |- ...  
 
 
 ###################################################################################
