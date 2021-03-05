@@ -15,12 +15,17 @@ broken into two main parts:
 ========
 """
 
-opts = dict(name = 'Portfolio Management',
-            version = 0.1,
-            url = 'https://github.com/Housing-Valuation-Analysis/Portfolio-Management',
-            packages = PACKAGES,
-            description = 'Portfolio management tool',
-            long_description = LONG_DESCRIPTION)
+NAME = 'Portfolio Management'
+VERSION = 0.1
+URL = 'https://github.com/Housing-Valuation-Analysis/Portfolio-Management'
+DESCRIPTION = 'Portfolio management tool'
+
+opts = dict(name=NAME,
+            version=VERSION,
+            url=URL,
+            packages=PACKAGES,
+            description=DESCRIPTION,
+            long_description=LONG_DESCRIPTION)
 
 if __name__ == '__main__':
     setup(**opts)
