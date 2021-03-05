@@ -8,7 +8,7 @@ Portfolio Mangement
 ========
 This is a portfolio management tool aimed at vaule investors
 who are trying to compare multiple stock at the same time
-and understand what is the best purchase. This project is 
+and understand what is the best purchase. This project is
 broken into two main parts:
 1. Web interface
 2. Python Scraper
