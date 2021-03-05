@@ -6,9 +6,16 @@ import json
 import requests
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from stocks.errors import InvalidFormError
+# from stocks.errors import InvalidFormError
 from .models import Stock
 from .forms import StockForm
+import sys
+
+# sys.path.insert(1, '/Users/vincentlan/Documents/GitHub/Portfolio-Management-branch2/')
+from scraping.scraper import Scraper
+from django import template
+
+register = template.Library()
 
 
 # Create your views here.
@@ -17,17 +24,19 @@ def home_view(request):
 
     if request.method == "POST":
         ticker = request.POST['ticker']
-        api_request = requests.get(
-            "https://cloud.iexapis.com/stable/stock/"
-            + ticker
-            + "/quote?token=pk_73eb0d679f5f4f73b7d17b90e50923af"
-        )
+        scraper = Scraper(ticker)
+        data = scraper.scrape_all_data()
+        # api_request = requests.get(
+        #     "https://cloud.iexapis.com/stable/stock/"
+        #     + ticker
+        #     + "/quote?token=pk_73eb0d679f5f4f73b7d17b90e50923af"
+        # )
 
         try:
-            api = json.loads(api_request.content)
+            financials_data = data.get('financials')
         except Exception:
-            api = "Error..."
-        return render(request, 'home.html', {'api': api})
+            financials_data = "Error..."
+        return render(request, 'home.html', {'financials_data': financials_data})
     return render(
         request,
         'home.html',
@@ -51,31 +60,28 @@ def dashboard_view(request):
             form.save()
             messages.success(request, "Stock has been added!")
             return redirect('dashboard')
-        raise InvalidFormError()
+        # raise InvalidFormError()
     ticker = Stock.objects.all()
     output = []
-    for ticker_item in ticker:
-        api_request =\
-            requests.get("https://cloud.iexapis.com/stable/stock/"
-                         + str(ticker_item)
-                         + "/quote?token="
-                         + "pk_73eb0d679f5f4f73b7d17b90e50923af"
-                         )
 
+    for ticker_item in ticker:
+        scraper = Scraper(str(ticker_item))
         try:
-            api = json.loads(api_request.content)
-            output.append(api)
+            data = scraper.scrape_all_data()
+            financials_data = data.get('financials')
+            output.append(financials_data)
         except Exception:
             api = "Error..."
-    # return render(request, 'home.html', {'api' : api })
     # mylist = zip(output, ticker)
-    # return render(request, 'add_stock.html', {'mylist': mylist})
-
+    # context = {
+    #     'mylist': mylist,
+    # }
     return render(
         request,
         'dashboard.html',
         {'ticker': ticker,
-         'output': output}
+         'output': output
+         }
     )
 
 
