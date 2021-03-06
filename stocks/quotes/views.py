@@ -2,17 +2,14 @@
 # pylint: disable=broad-except
 
 """Website views"""
-import json
-import requests
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 # from stocks.errors import InvalidFormError
 from .models import Stock
 from .forms import StockForm
-import sys
 
-# sys.path.insert(1, '/Users/vincentlan/Documents/GitHub/Portfolio-Management-branch2/')
-from scraping.scraper import Scraper
+from scraping import Scraper
 from django import template
 
 register = template.Library()
@@ -26,11 +23,6 @@ def home_view(request):
         ticker = request.POST['ticker']
         scraper = Scraper(ticker)
         data = scraper.scrape_all_data()
-        # api_request = requests.get(
-        #     "https://cloud.iexapis.com/stable/stock/"
-        #     + ticker
-        #     + "/quote?token=pk_73eb0d679f5f4f73b7d17b90e50923af"
-        # )
 
         try:
             financials_data = data.get('financials')

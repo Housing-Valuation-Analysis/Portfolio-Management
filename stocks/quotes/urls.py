@@ -1,10 +1,10 @@
 """Routing module"""
 from django.urls import path
-from . import views
+from .views import home_view, about_view, dashboard_view, delete
 
 urlpatterns = [
-    path('', views.home_view, name="home"),
-    path('about/', views.about_view, name="about"),
-    path("dashboard/", views.dashboard_view, name="dashboard"),
-    path("delete/<stock_id>", views.delete, name="delete")
+    path('', home_view, name="home"),
+    path('about/', about_view, name="about"),
+    path("dashboard/", dashboard_view, name="dashboard"),
+    path("delete/<stock_id>", delete, name="delete")
 ]
