@@ -28,7 +28,7 @@
     </thead>
     <tbody>
 {% if ticker %}
-          {% for list_item in output %}
+          {% for list_item, tickers in zip_list %}
           <tr>
               <th scope="row">{{list_item.Company}}</th>
               <td>$
@@ -70,20 +70,19 @@
               </td>
               <td><input name="share"> </td>
               <td><input type="date" name="purchaseDate"> </td>
-            <td><a href="/" type="button"
-                   class="btn btn-danger">Delete {{item}}</a></button> </td>
+            <td><a href="{% url 'delete' tickers.id %}" type="button"
+                   class="btn btn-danger">Delete</a></button> </td>
       </tr>
           {% endfor %}
 
 
 {% endif %}
-    </tbody>
   </table>
 
 {% if ticker %}
-    {%  for item in ticker %}
-    <a href="{% url 'delete' item.id %}" type="button" class="btn btn-danger">Delete {{item}}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+    {%  for item, item2 in zip_list %}
+{#    <a href="{% url 'delete' item2.id %}" type="button" class="btn btn-danger">Delete {{item.Company}}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
+{#    <a href="{% url 'delete' item2.Company %}" type="button" class="btn btn-danger">Delete {{item2.Company}}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
     {% endfor %}
 {% else %}
   You don't have any stocks.

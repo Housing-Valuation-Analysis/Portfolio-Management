@@ -66,15 +66,13 @@ def dashboard_view(request):
             output.append(financials_data)
         except Exception:
             api = "Error..."
-    # mylist = zip(output, ticker)
-    # context = {
-    #     'mylist': mylist,
-    # }
+    zip_list = zip(output, ticker)
     return render(
         request,
         'dashboard.html',
         {'ticker': ticker,
-         'output': output
+         'output': output,
+         'zip_list': zip_list
          }
     )
 
