@@ -15,30 +15,63 @@
   <table class="table table-hover">
     <thead class="table table-dark">
       <tr>
-        <th scope="col">Company Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Previous Close</th>
-        <th scope="col">Market Cap</th>
-        <th scope="col">YTD Change</th>
-        <th scope="col">PE Ratio</th>
-        <th scope="col">52WK high</th>
-        <th scope="col">52WK low</th>
-        <!-- <th scope="col">Delete</th> -->
+          <th scope="col">Company Name</th>
+          <th scope="col">Current Price</th>
+          <th scope="col">Profit Margins</th>
+          <th scope="col">P/E</th>
+          <th scope="col">EBITDA</th>
+          <th scope="col">Price To Book</th>
+          <th scope="col">Share</th>
+          <th scope="col">Purchase Date</th>
+          <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
 {% if ticker %}
           {% for list_item in output %}
           <tr>
-            <th scope="row">{{list_item.companyName}}</th>
-            <td>{{ list_item.latestPrice }}</td>
-            <td>${{ list_item.previousClose }}</td>
-            <td>${{ list_item.marketCap }}</td>
-            <td>{{ list_item.ytdChange }}</td>
-            <td>${{ list_item.peRatio }}</td>
-            <td>${{ list_item.week52High }}</td>
-            <td>${{ list_item.week52Low }}</td>
-            <td></td>
+              <th scope="row">{{list_item.Company}}</th>
+              <td>$
+                  {% for item in list_item.items %}
+                    {% ifequal item.0 'Current Price' %}
+                        {{ item.1 }}
+                    {% endifequal %}
+                {% endfor %}
+              </td>
+
+              <td>
+                {% for item in list_item.items %}
+                    {% ifequal item.0 'Profit Margins' %}
+                        {{ item.1 }}
+                    {% endifequal %}
+                {% endfor %}
+              </td>
+
+              <td>
+                {% for item in list_item.items %}
+                    {% ifequal item.0 'Trailing P/E' %}
+                        {{ item.1 }}
+                    {% endifequal %}
+                {% endfor %}
+              </td>
+              <td>
+                {% for item in list_item.items %}
+                    {% ifequal item.0 'EBITDA' %}
+                        {{ item.1 }}
+                    {% endifequal %}
+                {% endfor %}
+              </td>
+              <td>$
+                {% for item in list_item.items %}
+                    {% ifequal item.0 'Price To Book' %}
+                        {{ item.1 }}
+                    {% endifequal %}
+                {% endfor %}
+              </td>
+              <td><input name="share"> </td>
+              <td><input type="date" name="purchaseDate"> </td>
+            <td><a href="/" type="button"
+                   class="btn btn-danger">Delete {{item}}</a></button> </td>
       </tr>
           {% endfor %}
 
@@ -49,8 +82,6 @@
 
 {% if ticker %}
     {%  for item in ticker %}
-    <!-- <button type="button" class="btn btn-primary">{{item}}</button>
-    <button href="{% url 'delete' item.id %}" type="button" class="btn btn-danger">Delete</button> -->
     <a href="{% url 'delete' item.id %}" type="button" class="btn btn-danger">Delete {{item}}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
     {% endfor %}

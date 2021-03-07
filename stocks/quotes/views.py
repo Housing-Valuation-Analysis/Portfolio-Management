@@ -9,9 +9,8 @@ from django.contrib import messages
 # from stocks.errors import InvalidFormError
 from .models import Stock
 from .forms import StockForm
-import sys
-
-# sys.path.insert(1, '/Users/vincentlan/Documents/GitHub/Portfolio-Management-branch2/')
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch2"), '..')))
 from scraping.scraper import Scraper
 from django import template
 
@@ -26,11 +25,6 @@ def home_view(request):
         ticker = request.POST['ticker']
         scraper = Scraper(ticker)
         data = scraper.scrape_all_data()
-        # api_request = requests.get(
-        #     "https://cloud.iexapis.com/stable/stock/"
-        #     + ticker
-        #     + "/quote?token=pk_73eb0d679f5f4f73b7d17b90e50923af"
-        # )
 
         try:
             financials_data = data.get('financials')
