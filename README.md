@@ -1,5 +1,8 @@
 # Portfolio Management Interface Project
 
+### Status: [![Build Status](https://travis-ci.com/Housing-Valuation-Analysis/Portfolio-Management.svg?branch=main)](https://travis-ci.com/Housing-Valuation-Analysis/Portfolio-Management)
+
+
 ### Last Edit: 3/4/21
 
 ## Contributors: Jack Chen, William Frame, Vincent Lan, Aniruddha Dutta, Junhao Zhang, Samuel Perebikovsky
