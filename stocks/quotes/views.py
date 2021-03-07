@@ -10,7 +10,7 @@ from django.contrib import messages
 from .models import Stock
 from .forms import StockForm
 import sys, os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch2"), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
 from scraping.scraper import Scraper
 from django import template
 
