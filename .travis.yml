@@ -5,6 +5,7 @@ notifications:
       - wframe@uw.edu
       - sampereb@uw.edu
       - jchen023@uw.edu
+      - zjh01@uw.edu
     on_success: never
     on_failure: always
 jobs:
