@@ -21,9 +21,9 @@ jobs:
         - pip3 install pytest-pylint
         - pip3 install pytest-flake8
         - pip3 install -r requirements.txt
-
       script:
-        - python3 -m pytest
+        - coverage run --source=scraping -m pytest
+        - coverage report --fail-under=95
         - pytest --pylint
         - pytest --flake8
     - name: "Python 3.7.4 on macOS"
@@ -41,7 +41,8 @@ jobs:
         - pip3 install pytest-flake8
         - pip3 install --user -r requirements.txt
       script:
-        - python3 -m pytest
+        - coverage run --source=scraping -m pytest
+        - coverage report --fail-under=95
         - pytest --pylint
         - pytest --flake8
     - name: "Python 3.8.0 on Windows"
@@ -60,7 +61,8 @@ jobs:
         - pip3 install -r requirements.txt
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
       script:
-        - python -m pytest
+        - coverage run --source=scraping -m pytest
+        - coverage report --fail-under=95
         - pytest --pylint
         - pytest --flake8
 
