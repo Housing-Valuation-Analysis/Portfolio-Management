@@ -7,7 +7,7 @@ class MetricStringProcessor:
     """Class that converts json text to friendly text"""
     acronym = {"Peg Ratio": "PEG",
                "Trailing P E": "P/E (Trailing)",
-               "Forward P E": "P/E (FWD)",
+               "Forward P E": "P/E (Forward)",
                "Price To Sales Trailing12 Months": "P/S (TTM)",
                "Price To Book": "P/B",
                "Average Daily Volume3 Month": "Average Daily Volume (3M)",
