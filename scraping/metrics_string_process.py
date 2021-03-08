@@ -6,11 +6,13 @@ import stringcase
 class MetricStringProcessor:
     """Class that converts json text to friendly text"""
     acronym = {"Peg Ratio": "PEG",
-               "Trailing P E": "Trailing P/E",
-               "Price To Sales Trailing12 Months": "P/Sales (TTM)",
+               "Trailing P E": "P/E (Trailing)",
+               "Forward P E": "P/E (FWD)",
+               "Price To Sales Trailing12 Months": "P/S (TTM)",
+               "Price To Book": "P/B",
                "Average Daily Volume3 Month": "Average Daily Volume (3M)",
                "Sand P52 Week Change": "S&P 52 Week Change",
-               "Enterprise To EBITDA": "EV/EBITDA",
+               "Enterprise To Ebitda": "EV/EBITDA",
                "Enterprise To Revenue": "EV/Revenue",
                "Fifty Two Week Low": "52 Week Low",
                "Fifty Two Week High": "52 Week High",

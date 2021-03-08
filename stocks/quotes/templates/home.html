@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
+{% load get %}
 {% block content %}
 
 {% if ticker %}
     {{ ticker}}
 {% endif %}
-
 
 
 <br/>
@@ -13,11 +13,44 @@
         These was a problem with your ticker symbol, please try again...
     {% else %}
         <h1>{{financials_data.Company}}</h1><br/>
-        Sector:{{financials_data.Sector}}<br/>
-        Industry:{{financials_data.Industry}}<br/>
-        Volume:{{financials_data.Volume}}</br>
-        EBITDA:{{financials_data.EBITDA}}</br>
+        <h4><a href={{financials_data|get:"Latest SEC Filing"}}>Latest SEC filing</a></h4><br/>
+<table style="width:1000px">
+    <td>
+<p>
+        <h4>Overview</h4>
+        <strong>Sector:</strong> {{financials_data|get:"Sector"}}<br/>
+        <strong>Industry:</strong> {{financials_data|get:"Industry"}}<br/>
+        <strong>Enterprise Value:</strong> {{financials_data|get:"Enterprise Value"}}<br/>
+        <strong>Market Cap:</strong> {{financials_data|get:"Market Cap"}}<br/>
+        <strong>Volume:</strong>: {{financials_data|get:"Volume"}}<br/>
+        </p>
+</td>
+    <td>
+        <p>
+            <h4>Profitability & Growth</h4>
+        <strong>Gross Margins:</strong>: {{financials_data|get:"Gross Margins"}}<br/>
+        <strong>Operating Margins:</strong> {{financials_data|get:"Operating Margins"}}<br/>
+        <strong>Profit Margins:</strong> {{financials_data|get:"Profit Margins"}}<br/>
+        <strong>Revenue Growth</strong> {{financials_data|get:"Revenue Growth"}}<br/>
+        <strong>Earnings Quarterly Growth:</strong> {{financials_data|get:"Earnings Quarterly Growth"}}<br/>
+        </p>
 
+        </td>
+<td>
+        <p>
+        <h4>Valuation</h4>
+        <strong>PEG:</strong> {{financials_data|get:"PEG"}}<br/>
+        <strong>P/E (Trailing):</strong> {{financials_data|get:"P/E (Trailing)"}}<br/>
+        <strong>P/E (FWD):</strong> {{financials_data|get:"P/E (FWD)"}}<br/>
+        <strong>P/B:</strong> {{financials_data|get:"P/B"}}<br/>
+        <strong>EV/EBITDA:</strong> {{financials_data|get:"EV/EBITDA"}}<br/>
+        <strong>EV/Revenue:</strong> {{financials_data|get:"EV/Revenue"}}<br/>
+        </p>
+</td>
+    </table>
+<br/>
+<br/>
+<p>{{financials_data|get:"Long Business Summary"}}</p>
     {% endif %}
 {% endif %}
 

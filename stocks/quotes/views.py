@@ -2,14 +2,14 @@
 # pylint: disable=broad-except
 
 """Website views"""
-import json
-import requests
 from django.shortcuts import render, redirect
 from django.contrib import messages
-# from stocks.errors import InvalidFormError
+import sys
+import os
+
 from .models import Stock
 from .forms import StockForm
-import sys, os
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
 from scraping.scraper import Scraper
 from django import template
@@ -38,6 +38,28 @@ def home_view(request):
             'ticker': "Enter a ticker symbol above"
         }
     )
+
+# def home_view(request):
+#     """The home view"""
+#
+#     if request.method == "POST":
+#         ticker = request.POST['ticker']
+#         scraper = Scraper(ticker)
+#         data = scraper.scrape_all_data()
+#
+#         try:
+#             financials_data = data.get('financials')
+#         except Exception:
+#             financials_data = "Error..."
+#         return render(request, 'home.html', {'financials_data': financials_data})
+#     return render(
+#         request,
+#         'home.html',
+#         {
+#             'ticker': "Enter a ticker symbol above"
+#         }
+#     )
+
 
 
 def about_view(request):
