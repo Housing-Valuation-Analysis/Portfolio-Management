@@ -2,7 +2,7 @@
 # pylint: disable=broad-except
 
 """Website views"""
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 import sys
 import os
@@ -22,10 +22,9 @@ def home_view(request):
     """The home view"""
 
     if request.method == "POST":
-        ticker = request.POST['ticker']
+        ticker = request.POST.get('ticker')
         scraper = Scraper(ticker)
         data = scraper.scrape_all_data()
-
         try:
             financials_data = data.get('financials')
         except Exception:
@@ -48,6 +47,13 @@ def about_view(request):
 def dashboard_view(request):
     """The dashboard view"""
     if request.method == "POST":
+        check_ticker = request.POST.get('ticker')
+        scraper = Scraper(str(check_ticker))
+        try:
+            data = scraper.scrape_all_data()
+        except KeyError:
+            raise Exception
+
         form = StockForm(request.POST or None)
 
         if form.is_valid():
