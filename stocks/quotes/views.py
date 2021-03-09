@@ -1,18 +1,18 @@
 # pylint: disable=no-member
 # pylint: disable=broad-except
+# pylint: disable=wrong-import-position
 
 """Website views"""
 import sys
 import os
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-sys.path.insert(0, os.path.abspath( \
-    os.path.join(os.path.dirname( \
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(
         "Portfolio-Management-branch"), '..')))
-from scraping.scraper import Scraper
-from .models import Stock
-from .forms import StockForm
+from scraping.scraper import Scraper  # noqa: E402
+from .models import Stock  # noqa: E402
+from .forms import StockForm  # noqa: E402
 
 
 # Create your views here.
