@@ -41,8 +41,8 @@
               <td>{{financials|get:"Sector"}}</td>
               <td>{{financials|get:"Industry"}}</td>
               <td><input type="date" name="purchaseDate"> </td>
-              <td><input name="share" size="5"> </td>
-              <td><input name="entry_price" size="5"> </td>
+              <td><input name="share"> </td>
+              <td><input name="entry_price"> </td>
               <th scope="row">{{tickers}}</th>
               <td>{{financials|get:"Current Price"}}</td>
               <td>{{financials|get:"Beta"}}</td>
@@ -51,9 +51,6 @@
               <td>{{financials|get:"P/E (Forward)"}}</td>
               <td>{{financials|get:"P/B"}}</td>
               <td>{{financials|get:"EV/EBITDA"}}</td>
-
-
-
 
             <td><a href="{% url 'delete' tickers.id %}" type="button"
                    class="btn btn-danger">Delete</a></button> </td>
