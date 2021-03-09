@@ -64,7 +64,7 @@ def dashboard_view(request):
             financials_data = data.get('financials')
             output.append(financials_data)
         except Exception:
-            api = "Error..."
+            financials_data = "Error..."
     zip_list = zip(output, ticker)
     return render(
         request,
