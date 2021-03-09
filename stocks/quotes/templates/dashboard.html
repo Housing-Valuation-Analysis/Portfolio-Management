@@ -12,11 +12,10 @@
     <button class="btn btn-outline-success" type="submit">Add Stock </button>
   </form>
 </br>
-
+<div style="overflow: scroll;">
   <table class="table table-hover">
     <thead class="table table-dark">
       <tr>
-
           <th scope="col">Sector</th>
           <th scope="col">Industry</th>
           <th scope="col">Entry Date</th>
@@ -60,7 +59,7 @@
 
 {% endif %}
   </table>
-
+</div>
 {% if ticker %}
     {%  for item, item2 in zip_list %}
 {#    <a href="{% url 'delete' item2.id %}" type="button" class="btn btn-danger">Delete {{item.Company}}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
