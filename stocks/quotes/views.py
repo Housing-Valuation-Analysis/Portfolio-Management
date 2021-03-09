@@ -1,20 +1,19 @@
 # pylint: disable=no-member
 # pylint: disable=broad-except
+# pylint: disable=wrong-import-position
+# pylint: disable=raise-missing-from
 
 """Website views"""
-from django.shortcuts import render, redirect, HttpResponse
-from django.contrib import messages
 import sys
 import os
-
-from .models import Stock
-from .forms import StockForm
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
-from scraping.scraper import Scraper
-from django import template
-
-register = template.Library()
+from django.shortcuts import render, redirect
+from django.contrib import messages
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(
+        "Portfolio-Management-branch"), '..')))
+from scraping.scraper import Scraper  # noqa: E402
+from .models import Stock  # noqa: E402
+from .forms import StockForm  # noqa: E402
 
 
 # Create your views here.
@@ -29,7 +28,12 @@ def home_view(request):
             financials_data = data.get('financials')
         except Exception:
             financials_data = "Error..."
-        return render(request, 'home.html', {'financials_data': financials_data})
+        return render(request,
+                      'home.html',
+                      {
+                          'financials_data': financials_data
+                      }
+                      )
     return render(
         request,
         'home.html',
@@ -58,7 +62,9 @@ def dashboard_view(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Stock has been added!")
+            messages.success(request,
+                             "Stock has been added!"
+                             )
             return redirect('dashboard')
     ticker = Stock.objects.all()
     output = []
@@ -70,7 +76,8 @@ def dashboard_view(request):
             financials_data = data.get('financials')
             output.append(financials_data)
         except Exception:
-            financials_data = "Error..."
+            pass
+
     zip_list = zip(output, ticker)
     return render(
         request,
