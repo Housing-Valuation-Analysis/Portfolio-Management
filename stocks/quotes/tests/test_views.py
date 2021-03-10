@@ -8,7 +8,7 @@ from django.test import TestCase
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
 from scraping import Scraper
 from scraping.clients import Requester
-from ..viewsController import retrieve_by_scraper
+from quotes.viewsController import retrieve_by_scraper
 
 TEST_TICKER = 'MSFT'
 VALID_PROFILE_URL_TEXT_FILE_NAME = 'valid_profile_url_text.html'
