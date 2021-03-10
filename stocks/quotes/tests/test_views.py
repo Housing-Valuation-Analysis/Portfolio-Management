@@ -14,7 +14,6 @@ TEST_TICKER = 'MSFT'
 VALID_PROFILE_URL_TEXT_FILE_NAME = 'valid_profile_url_text.html'
 VALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = 'valid_key_statistics_url_text.html'
 
-#class TestScraper(unittest.TestCase):
 class TestScraper(TestCase):
     """Class with the tests for the scraper integration"""
 

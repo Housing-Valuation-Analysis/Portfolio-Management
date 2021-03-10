@@ -22,7 +22,12 @@ def home_view(request):
 
     if request.method == "POST":
         ticker = request.POST['ticker']
-        financials_data = retrieve_by_ticker(ticker)
+        try:
+            financials_data = retrieve_by_ticker(ticker)
+        except Exception as exc:
+            messages.error(request, exc.message)
+            return redirect('dashboard')
+
         return render(request, 'home.html', {'financials_data': financials_data})
     return render(
         request,
@@ -42,11 +47,11 @@ def dashboard_view(request):
     """The dashboard view"""
     if request.method == "POST":
         check_ticker = request.POST.get('ticker')
-        scraper = Scraper(str(check_ticker))
         try:
-            data = scraper.scrape_all_data()
-        except KeyError:
-            raise Exception
+            data = retrieve_by_ticker(str(check_ticker))
+        except Exception as exc:
+            messages.error(request, exc.message)
+            return redirect('dashboard')
 
         form = StockForm(request.POST or None)
 
