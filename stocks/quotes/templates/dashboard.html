@@ -7,8 +7,11 @@
 
     <form action="{% url 'dashboard' %}" class="d-flex" method="POST">
         {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Get Stock Quote" aria-label="Search" name="ticker"
+        <input class="form-control me-2" type="search" placeholder="Which Stock?" aria-label="Search" name="ticker"
                required>
+        <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price">
+        <input class="form-control me-2" type="date" name="entry_date">
+        <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares">
         <button class="btn btn-outline-success" type="submit">Add Stock</button>
     </form>
     </br>
@@ -18,9 +21,9 @@
             <tr>
                 <th scope="col">Sector</th>
                 <th scope="col">Industry</th>
-                <th scope="col">Entry Date</th>
-                <th scope="col">Shares</th>
-                <th scope="col">Entry Price</th>
+<!--                <th scope="col">Entry Date</th>-->
+<!--                <th scope="col">Shares</th>-->
+<!--                <th scope="col">Entry Price</th>-->
                 <th scope="col">Stock Ticker</th>
                 <th scope="col">Current Price</th>
                 <th scope="col">Beta</th>
@@ -38,9 +41,9 @@
                     <tr>
                         <td>{{ financials|get:"Sector"}}</td>
                         <td>{{ financials|get:"Industry"}}</td>
-                        <td><input type="date" name="purchaseDate"></td>
-                        <td><input name="share"></td>
-                        <td><input name="entry_price"></td>
+<!--                        <td><input type="date" name="purchaseDate"></td>-->
+<!--                        <td><input name="share"></td>-->
+<!--                        <td><input name="entry_price"></td>-->
                         <th scope="row">{{ tickers }}</th>
                         <td>{{ financials|get:"Current Price"}}</td>
                         <td>{{ financials|get:"Beta"}}</td>
