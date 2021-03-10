@@ -1,3 +1,5 @@
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
 """
 ASGI config for stocks project.
 

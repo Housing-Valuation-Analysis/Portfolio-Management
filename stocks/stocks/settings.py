@@ -1,3 +1,5 @@
+# pylint: disable=wrong-import-order
+# pylint: disable=unused-import
 """
 Django settings for stocks project.
 

@@ -132,6 +132,6 @@ if __name__ == "__main__":
     # print(data)
     # print(data["financials"])
     for key, val in data["financials"].items():
-        print(key)
+        print(key + ":" + val)
     # print(data['sec_filings'])
 '''

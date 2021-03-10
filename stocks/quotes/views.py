@@ -1,22 +1,20 @@
 # pylint: disable=no-member
 # pylint: disable=broad-except
+# pylint: disable=wrong-import-position
+# pylint: disable=raise-missing-from
 
 """Website views"""
-import json
-import requests
+import sys
+import os
 from django.shortcuts import render, redirect
 from django.contrib import messages
-# from stocks.errors import InvalidFormError
-from .models import Stock
-from .forms import StockForm
-import sys, os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
-from scraping.scraper import Scraper
-from django import template
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(
+        "Portfolio-Management-branch"), '..')))
+from scraping.scraper import Scraper  # noqa: E402
+from .models import Stock  # noqa: E402
+from .forms import StockForm  # noqa: E402
 from .viewsController import retrieve_by_ticker
-
-register = template.Library()
-
 
 # Create your views here.
 def home_view(request):
@@ -43,13 +41,21 @@ def about_view(request):
 def dashboard_view(request):
     """The dashboard view"""
     if request.method == "POST":
+        check_ticker = request.POST.get('ticker')
+        scraper = Scraper(str(check_ticker))
+        try:
+            data = scraper.scrape_all_data()
+        except KeyError:
+            raise Exception
+
         form = StockForm(request.POST or None)
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Stock has been added!")
+            messages.success(request,
+                             "Stock has been added!"
+                             )
             return redirect('dashboard')
-        # raise InvalidFormError()
     ticker = Stock.objects.all()
     output = []
 

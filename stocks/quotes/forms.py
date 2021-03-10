@@ -9,4 +9,9 @@ class StockForm(forms.ModelForm):
     class Meta:
         """Meta class for stock"""
         model = Stock
-        fields = ["ticker"]
+        fields = [
+            "ticker",
+            "entry_price",
+            "entry_date",
+            "shares"
+        ]
