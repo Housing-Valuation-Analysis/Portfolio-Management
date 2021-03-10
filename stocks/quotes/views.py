@@ -13,6 +13,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
 from scraping.scraper import Scraper
 from django import template
+from .viewsController import retrieve_by_ticker
 
 register = template.Library()
 
@@ -23,13 +24,7 @@ def home_view(request):
 
     if request.method == "POST":
         ticker = request.POST['ticker']
-        scraper = Scraper(ticker)
-        data = scraper.scrape_all_data()
-
-        try:
-            financials_data = data.get('financials')
-        except Exception:
-            financials_data = "Error..."
+        financials_data = retrieve_by_ticker(ticker)
         return render(request, 'home.html', {'financials_data': financials_data})
     return render(
         request,
@@ -59,13 +54,8 @@ def dashboard_view(request):
     output = []
 
     for ticker_item in ticker:
-        scraper = Scraper(str(ticker_item))
-        try:
-            data = scraper.scrape_all_data()
-            financials_data = data.get('financials')
-            output.append(financials_data)
-        except Exception:
-            api = "Error..."
+        output.append(retrieve_by_ticker(str(ticker_item)))
+
     zip_list = zip(output, ticker)
     return render(
         request,

@@ -124,7 +124,7 @@ class Scraper:
             'sec_filings': self.sec_filing_list
         }
 
-
+'''
 if __name__ == "__main__":
     s = Scraper('MSFT')
     data = s.scrape_all_data()
@@ -134,3 +134,4 @@ if __name__ == "__main__":
     for key, val in data["financials"].items():
         print(key)
     # print(data['sec_filings'])
+'''
