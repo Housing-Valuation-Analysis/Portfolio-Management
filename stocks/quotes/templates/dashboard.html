@@ -21,10 +21,10 @@
             <tr>
                 <th scope="col">Sector</th>
                 <th scope="col">Industry</th>
-<!--                <th scope="col">Entry Date</th>-->
-<!--                <th scope="col">Shares</th>-->
-<!--                <th scope="col">Entry Price</th>-->
                 <th scope="col">Stock Ticker</th>
+                <th scope="col">Entry Price</th>
+                <th scope="col">Entry Date</th>
+                <th scope="col">Shares</th>
                 <th scope="col">Current Price</th>
                 <th scope="col">Beta</th>
                 <th scope="col">PEG</th>
@@ -37,14 +37,14 @@
             </thead>
             <tbody>
             {% if ticker %}
-                {% for financials, tickers in zip_list %}
+                {% for financials, tickers, price, date, share, obj in zip_list %}
                     <tr>
                         <td>{{ financials|get:"Sector"}}</td>
                         <td>{{ financials|get:"Industry"}}</td>
-<!--                        <td><input type="date" name="purchaseDate"></td>-->
-<!--                        <td><input name="share"></td>-->
-<!--                        <td><input name="entry_price"></td>-->
                         <th scope="row">{{ tickers }}</th>
+                        <td>{{ price }}</td>
+                        <td>{{ date }}</td>
+                        <td>{{ share }}</td>
                         <td>{{ financials|get:"Current Price"}}</td>
                         <td>{{ financials|get:"Beta"}}</td>
                         <td>{{ financials|get:"PEG"}}</td>
@@ -52,7 +52,7 @@
                         <td>{{ financials|get:"P/E (Forward)"}}</td>
                         <td>{{ financials|get:"P/B"}}</td>
                         <td>{{ financials|get:"EV/EBITDA"}}</td>
-                        <td><a href="{% url 'delete' tickers.id %}" type="button"
+                        <td><a href="{% url 'delete' obj.id %}" type="button"
                                class="btn btn-danger">Delete</a></button> </td>
                     </tr>
                 {% endfor %}
@@ -61,4 +61,11 @@
             {% endif %}
         </table>
     </div>
+
+    <form action="{% url 'download' %}" class="d-flex" method="POST">
+        {% csrf_token %}
+        <button href="{% url 'download' %}" class="btn btn-success" type="submit">Download</button>
+    </form>
+
+
 {% endblock %}
