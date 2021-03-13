@@ -1,5 +1,7 @@
+
 # pylint: disable=wrong-import-order
 # pylint: disable=unused-import
+
 """
 Django settings for stocks project.
 
@@ -129,3 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = "dashboard"
+
+LOGOUT_REDIRECT_URL = "home"
