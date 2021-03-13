@@ -27,6 +27,32 @@ This project mainly relies on a few libraries to run properly. Namely, 'requests
 - pathlib
 - flake8
 
+### Installation
+
+To install `Portfolio-Management` you will need to begin by cloning the project's git repository by using the following `git` command: 
+
+```
+git clone https://github.com/Housing-Valuation-Analysis/Portfolio-Management.git
+```
+
+Next, you will want to run `setup.py` using the following code:
+
+```
+python setup.py install
+```
+
+And to make sure all the dependencies are on your machine run:
+
+```
+pip install -r requirements.txt
+```
+
+Then to launch the webpage, we cd into the `stocks` folder and run `manage.py` by using the following code:
+
+```
+cd stocks
+python mange.py runserver
+```
 
 ### Organization
 
