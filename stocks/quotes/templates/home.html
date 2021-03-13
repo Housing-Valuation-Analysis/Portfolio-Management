@@ -2,6 +2,9 @@
 {% load get %}
 {% block content %}
 
+Hello, {{ user.username|default:'Guest' }}!
+<hr>
+
     {% if ticker %}
         {{ ticker }}
     {% endif %}
@@ -77,5 +80,6 @@
             <p>{{ financials_data|get:"Long Business Summary"}}</p>
         {% endif %}
     {% endif %}
+
 
 {% endblock %}
