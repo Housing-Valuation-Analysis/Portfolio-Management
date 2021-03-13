@@ -28,6 +28,8 @@ class TestScraper(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.data_dir = os.path.join("tests", "data")
         self.data_dir = self.data_dir if os.path.isdir(self.data_dir) \
+            else os.path.join("scraping","tests", "data")
+        self.data_dir = self.data_dir if os.path.isdir(self.data_dir) \
             else os.path.join("data")
 
     @staticmethod

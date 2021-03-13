@@ -23,10 +23,12 @@ jobs:
         - pip3 install pytest-flake8
         - pip3 install -r requirements.txt
       script:
-        - coverage run --source=scraping -m pytest
+        - coverage run --source=scraping -m pytest --ignore=stocks/quotes/tests/test_views.py
         - coverage report --fail-under=95
-        - pytest --pylint
-        - pytest --flake8
+        - pytest --pylint --ignore=stocks/quotes/tests/test_views.py
+        - pytest --flake8 --ignore=stocks/quotes/tests/test_views.py
+        - coverage run --source=. --omit=quotes/views.py -m manage test
+        - coverage report --fail-under=95
     - name: "Python 3.7.4 on macOS"
       os: osx
       osx_image: xcode11.2
@@ -42,10 +44,12 @@ jobs:
         - pip3 install pytest-flake8
         - pip3 install --user -r requirements.txt
       script:
-        - coverage run --source=scraping -m pytest
+        - coverage run --source=scraping -m pytest --ignore=stocks/quotes/tests/test_views.py
         - coverage report --fail-under=95
-        - pytest --pylint
-        - pytest --flake8
+        - pytest --pylint --ignore=stocks/quotes/tests/test_views.py
+        - pytest --flake8 --ignore=stocks/quotes/tests/test_views.py
+        - coverage run --source=. --omit=quotes/views.py -m manage test
+        - coverage report --fail-under=95
     - name: "Python 3.8.0 on Windows"
       os: windows
       language: shell
@@ -62,8 +66,11 @@ jobs:
         - pip3 install -r requirements.txt
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
       script:
-        - coverage run --source=scraping -m pytest
+        - coverage run --source=scraping -m pytest --ignore=stocks/quotes/tests/test_views.py
         - coverage report --fail-under=95
-        - pytest --pylint
-        - pytest --flake8
+        - pytest --pylint --ignore=stocks/quotes/tests/test_views.py
+        - pytest --flake8 --ignore=stocks/quotes/tests/test_views.py
+        - cd stocks
+        - coverage run --source=. --omit=quotes/views.py -m manage test
+        - coverage report --fail-under=95
 
