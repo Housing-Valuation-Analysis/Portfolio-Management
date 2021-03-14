@@ -42,28 +42,6 @@ def home_view(request):
         }
     )
 
-# def home_view(request):
-#     """The home view"""
-#
-#     if request.method == "POST":
-#         ticker = request.POST['ticker']
-#         scraper = Scraper(ticker)
-#         data = scraper.scrape_all_data()
-#
-#         try:
-#             financials_data = data.get('financials')
-#         except Exception:
-#             financials_data = "Error..."
-#         return render(request, 'home.html', {'financials_data': financials_data})
-#     return render(
-#         request,
-#         'home.html',
-#         {
-#             'ticker': "Enter a ticker symbol above"
-#         }
-#     )
-
-
 def about_view(request):
     """The about view"""
     return render(request, 'about.html', {})
