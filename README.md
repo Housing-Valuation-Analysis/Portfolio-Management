@@ -35,23 +35,23 @@ To install `Portfolio-Management` you will need to begin by cloning the project'
 git clone https://github.com/Housing-Valuation-Analysis/Portfolio-Management.git
 ```
 
-Next, you will want to run `setup.py` using the following code:
+Next, you will want `cd` into the repository if you are not already there and run `setup.py` using the following code:
 
 ```
-python setup.py install
+python3 setup.py install
 ```
 
 And to make sure all the dependencies are on your machine run:
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Then to launch the webpage, we cd into the `stocks` folder and run `manage.py` by using the following code:
 
 ```
 cd stocks
-python mange.py runserver
+python3 manage.py runserver
 ```
 
 ### Organization
