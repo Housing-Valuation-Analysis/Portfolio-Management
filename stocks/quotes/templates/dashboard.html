@@ -19,12 +19,12 @@
         <table class="table table-hover">
             <thead class="table table-dark">
             <tr>
+                <th scope="col">Stock Ticker</th>
+                <th scope="col">Cost Basis</th>
+                <th scope="col">Purchase Date</th>
+                <th scope="col">Shares</th>
                 <th scope="col">Sector</th>
                 <th scope="col">Industry</th>
-                <th scope="col">Stock Ticker</th>
-                <th scope="col">Entry Price</th>
-                <th scope="col">Entry Date</th>
-                <th scope="col">Shares</th>
                 <th scope="col">Current Price</th>
                 <th scope="col">Beta</th>
                 <th scope="col">PEG</th>
@@ -39,12 +39,12 @@
             {% if ticker %}
                 {% for financials, tickers, price, date, share, obj in zip_list %}
                     <tr>
-                        <td>{{ financials|get:"Sector"}}</td>
-                        <td>{{ financials|get:"Industry"}}</td>
                         <th scope="row">{{ tickers }}</th>
                         <td>{{ price }}</td>
                         <td>{{ date }}</td>
                         <td>{{ share }}</td>
+                        <td>{{ financials|get:"Sector"}}</td>
+                        <td>{{ financials|get:"Industry"}}</td>
                         <td>{{ financials|get:"Current Price"}}</td>
                         <td>{{ financials|get:"Beta"}}</td>
                         <td>{{ financials|get:"PEG"}}</td>

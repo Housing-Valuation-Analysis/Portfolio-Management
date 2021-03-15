@@ -18,22 +18,20 @@ Hello, {{ user.username|default:'Guest' }}!
             <h1>{{ financials_data.Company }}</h1><br/>
             <h4>Current Price: {{ financials_data|get:"Current Price"}}</h4>
             <h4>Post Market Price: {{ financials_data|get:"Post Market Price"}}</h4>
-            <h6><a href={{ financials_data|get:"Latest SEC Filing"}}> Latest SEC filing </a></h6>
-
+            <h6><a href={{ financials_data|get:"Latest SEC Filing"}} target="_blank">  Latest SEC filing </a></h6>
 
             <table width=100%>
-
                 <td valign='top'>
                     <p>
                     <h4>Overview</h4>
-                    <strong>Sector:</strong> {{ financials_data|get:"Sector"}}<br/>
-                    <strong>Industry:</strong> {{ financials_data|get:"Industry"}}<br/>
-                    <strong>Enterprise Value:</strong> {{ financials_data|get:"Enterprise Value"}}<br/>
-                    <strong>Market Cap:</strong> {{ financials_data|get:"Market Cap"}}<br/>
-                    <strong>Avg Volume:</strong> {{ financials_data|get:"Average Volume"}}<br/>
-                    <strong>Beta:</strong> {{ financials_data|get:"Beta"}}<br/>
-                    <strong>Dividend Yield:</strong> {{ financials_data|get:"Trailing Annual Dividend Yield"}}<br/>
-                    <strong>50-Day Avg Price:</strong> {{ financials_data|get:"50 Day Avg"}}<br/>
+                    <strong>Sector:</strong> {{ financials_data|get:"Sector"}}<br>
+                    <strong>Industry:</strong> {{ financials_data|get:"Industry"}}<br>
+                    <strong>Enterprise Value:</strong> {{ financials_data|get:"Enterprise Value"}}<br>
+                    <strong>Market Cap:</strong> {{ financials_data|get:"Market Cap"}}<br>
+                    <strong>Avg Volume:</strong> {{ financials_data|get:"Average Volume"}}<br>
+                    <strong>Beta:</strong> {{ financials_data|get:"Beta"}}<br>
+                    <strong>Dividend Yield:</strong> {{ financials_data|get:"Trailing Annual Dividend Yield"}}<br>
+                    <strong>50-Day Avg Price:</strong> {{ financials_data|get:"50 Day Avg"}}<br>
                     <strong>200-Day Avg Price:</strong> {{ financials_data|get:"200 Day Avg"}}
 
                     </p>
