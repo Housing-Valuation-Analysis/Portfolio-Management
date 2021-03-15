@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath(
 from scraping.scraper import Scraper  # noqa: E402
 from .models import Stock  # noqa: E402
 from .forms import StockForm # noqa: E402
-from .viewsController import retrieve_by_ticker
+from .viewsController import retrieve_by_scraper
 
 
 # Create your views here.
@@ -27,7 +27,7 @@ def home_view(request):
     if request.method == "POST":
         ticker = request.POST['ticker']
         try:
-            financials_data = retrieve_by_ticker(ticker)
+            financials_data = retrieve_by_scraper(Scraper(ticker))
         except Exception as exc:
             messages.error(request, exc.message)
             return redirect('dashboard')
@@ -96,7 +96,7 @@ def dashboard_view(request):
         date.append(item_list[2])
         share.append(item_list[3])
 
-        output.append(retrieve_by_ticker(str(item_list[0])))
+        output.append(retrieve_by_scraper(Scraper(str(item_list[0]))))
 
     zip_list = zip(output, ticker, price, date, share, obj)
 
