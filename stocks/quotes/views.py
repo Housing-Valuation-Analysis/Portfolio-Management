@@ -1,8 +1,9 @@
+# pylint: disable=wrong-import-order, wrong-import-position, import-error
+# pylint: disable=missing-function-docstring
 # pylint: disable=no-member
+# pylint: disable=relative-beyond-top-level
 # pylint: disable=broad-except
-
-# pylint: disable=wrong-import-position
-# pylint: disable=raise-missing-from
+# pylint: disable=too-many-locals
 
 """Website views"""
 import sys
@@ -10,14 +11,16 @@ import os
 import csv
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import permission_required
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(
         "Portfolio-Management-branch"), '..')))
 from scraping.scraper import Scraper  # noqa: E402
 from .models import Stock  # noqa: E402
-from .forms import StockForm # noqa: E402
-from .viewsController import retrieve_by_ticker
+from .forms import StockForm  # noqa: E402
+from .viewsController import retrieve_by_ticker  # noqa: E402
 
 
 # Create your views here.
@@ -31,9 +34,11 @@ def home_view(request):
         except Exception as exc:
             messages.error(request, exc.message)
             return redirect('dashboard')
-
-
-        return render(request, 'home.html', {'financials_data': financials_data})
+        return render(
+            request,
+            'home.html',
+            {'financials_data': financials_data}
+            )
     return render(
         request,
         'home.html',
@@ -41,6 +46,7 @@ def home_view(request):
             'ticker': "Enter a ticker symbol above"
         }
     )
+
 
 def about_view(request):
     """The about view"""
@@ -87,8 +93,9 @@ def dashboard_view(request):
          }
     )
 
-#delete view
+
 def delete(request, stock_id):
+    """delete view"""
     item = Stock.objects.get(pk=stock_id)
     item.delete()
     messages.success(request, "Stock has been delete!")
@@ -99,7 +106,6 @@ def delete(request, stock_id):
 def download_csv(request):
     """Write dashboard data as csv"""
     obj = Stock.objects.all()
-    output = []
     ticker = []
     price = []
     share = []
@@ -132,14 +138,15 @@ def download_csv(request):
         'EV/EBITDA'
         ])
 
-    i=0
+    i = 0
     for ticker_item in ticker:
         scraper = Scraper(str(ticker_item))
         try:
             data = scraper.scrape_all_data()
             financials_data = data.get('financials')
         except Exception:
-            api = "Error..."
+            messages.error(request, "Unable to download...")
+            return redirect('dashboard')
 
         writer.writerow([
             financials_data['Sector'],
@@ -159,3 +166,22 @@ def download_csv(request):
         i = i+1
 
     return response
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(
+        request,
+        'registration/register.html',
+        {'form': form}
+        )
