@@ -19,10 +19,8 @@ sys.path.insert(0, os.path.abspath(
         "Portfolio-Management-branch"), '..')))
 from scraping.scraper import Scraper  # noqa: E402
 from .models import Stock  # noqa: E402
-from .forms import StockForm # noqa: E402
-from .viewsController import retrieve_by_scraper
 from .forms import StockForm  # noqa: E402
-from .viewsController import retrieve_by_ticker  # noqa: E402
+from .viewsController import retrieve_by_scraper  # noqa: E402
 
 
 # Create your views here.
