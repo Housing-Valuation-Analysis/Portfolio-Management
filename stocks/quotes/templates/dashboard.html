@@ -9,11 +9,23 @@
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Which Stock?" aria-label="Search" name="ticker"
                required>
-        <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price">
-        <input class="form-control me-2" type="date" name="entry_date">
-        <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares">
+        {% if user.username %}
+            <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price">
+            <input class="form-control me-2" type="date" name="entry_date">
+            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares"> 
+        {% else %}
+
+            <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price" disabled>
+            <input class="form-control me-2" type="date" name="entry_date" disabled>
+            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares" disabled>
+        {% endif %}
         <button class="btn btn-outline-success" type="submit">Add Stock</button>
     </form>
+    {% if user.username %}
+        </br>
+    {% else %}
+        <p><strong>*</strong>Please 'Login' to access dashboard features</p>
+    {% endif %}
     </br>
     <div style="overflow: scroll;">
         <table class="table table-hover">
@@ -61,10 +73,16 @@
             {% endif %}
         </table>
     </div>
+    </br>
 
     <form action="{% url 'download' %}" class="d-flex" method="POST">
         {% csrf_token %}
-        <button href="{% url 'download' %}" class="btn btn-success" type="submit">Download</button>
+        {% if user.username %}
+            <button href="{% url 'download' %}" class="btn btn-success" type="submit">Download</button>
+        {% else %}
+            <button class="btn btn-success" type="submit" disabled>Download</button>
+        {% endif %}
+
     </form>
 
 

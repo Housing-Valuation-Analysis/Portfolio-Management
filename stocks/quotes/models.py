@@ -21,7 +21,7 @@ class Stock(models.Model):
     shares = models.DecimalField(
         max_digits=10,
         decimal_places=3,
-        default=4,
+        default=0,
         null=0,
         blank=True)
 
