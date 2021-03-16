@@ -9,14 +9,16 @@ import sys
 import unittest  # noqa: F401
 
 from django.test import TestCase  # noqa: E402
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))  # noqa: E501
+sys.path.insert(0, os.path.abspath(os.path.join(
+    os.path.dirname("Portfolio-Management-branch"), '..')))  # noqa: E501
 from scraping import Scraper  # noqa: E402
 from scraping.clients import Requester  # noqa: E402
 from ..viewsController import retrieve_by_scraper  # noqa: E402
 
 TEST_TICKER = 'MSFT'
 VALID_PROFILE_URL_TEXT_FILE_NAME = 'valid_profile_url_text.html'
-VALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = 'valid_key_statistics_url_text.html'
+VALID_KEY_STATISTICS_URL_TEXT_FILE_NAME = \
+    'valid_key_statistics_url_text.html'
 
 
 class TestScraper(TestCase):
@@ -47,19 +49,21 @@ class TestScraper(TestCase):
         return Scraper(TEST_TICKER, requester)
 
     def test_retrieve_from_scraper(self):
-        """Tests the website get correct information from scraper module."""
+        """Tests the website get correct information from scraper."""
         test_data = os.path.join(
             self.data_dir,
             VALID_KEY_STATISTICS_URL_TEXT_FILE_NAME)
         test_requester = TestScraper.get_test_requester(test_data)
         test_scraper = TestScraper.get_test_scraper(test_requester)
-        test_scraper.add_profile_to_dict = self.empty_function
-        self.assertTrue(retrieve_by_scraper(test_scraper)['Gross Profits'] == '96.94B')  # noqa: E501
+        test_scraper.add_profile_to_dict = lambda: None
+        self.assertTrue(retrieve_by_scraper(test_scraper)
+                            ['Gross Profits'] == '96.94B')  # noqa: E501
 
         test_data = os.path.join(
             self.data_dir,
             VALID_PROFILE_URL_TEXT_FILE_NAME)
         test_requester = TestScraper.get_test_requester(test_data)
         test_scraper = TestScraper.get_test_scraper(test_requester)
-        test_scraper.add_key_stats_to_dict = self.empty_function
-        self.assertTrue(retrieve_by_scraper(test_scraper)['Sector'] == 'Technology')  # noqa: E501
+        test_scraper.add_key_stats_to_dict = lambda: None
+        self.assertTrue(retrieve_by_scraper(test_scraper)
+                            ['Sector'] == 'Technology')  # noqa: E501
