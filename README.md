@@ -65,6 +65,16 @@ Then to launch the webpage, we change directory into the `stocks` folder and run
 cd stocks
 python3 manage.py runserver
 ```
+Local host link:
+
+```
+http://127.0.0.1:8000
+```
+Admin link:
+
+```
+http://127.0.0.1:8000/admin
+```
 
 ### Organization
 
