@@ -1,4 +1,4 @@
-<!--/templates/login.html-->
+<<!--/templates/login.html-->
 
 {% extends 'base.html' %}
 {% block content %}
@@ -10,6 +10,9 @@
     {{ form.as_p }}
     <input type="submit" value="Login">
 </form>
+
+<p>Dont have an account? Register <a  href="{% url 'register' %}">here</a></p>
+
 
 <a href="{% url 'dashboard' %}">Back to dashboard</a>
 
