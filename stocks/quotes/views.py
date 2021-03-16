@@ -58,7 +58,7 @@ def dashboard_view(request):
     if request.method == "POST":
         ticker = request.POST['ticker']
         try:
-            financials_data = retrieve_by_scraper(Scraper(ticker))
+            retrieve_by_scraper(Scraper(ticker))
         except Exception as exc:
             messages.error(request, exc.message)
             return redirect('dashboard')
