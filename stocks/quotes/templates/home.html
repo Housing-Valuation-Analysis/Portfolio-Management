@@ -1,31 +1,83 @@
 {% extends 'base.html' %}
+{% load get %}
 {% block content %}
 
-{% if ticker %}
-    {{ ticker}}
-{% endif %}
+Hello, {{ user.username|default:'Guest' }}!
+<hr>
 
-
-
-<br/>
-{% if api %}
-    {% if api == "Error..."%}
-        These was a problem with your ticker symbol, please try again...
-    {% else %}
-
-        <h1>{{api.companyName}}</h1><br/>
-        Price: ${{ api.latestPrice }}<br/>
-        Previous Close: ${{ api.previousClose }}</br>
-        Market Cap: ${{ api.marketCap }}</br>
-        YTD Change: {{ api.ytdChange }}</br>
-        PE Ratio : ${{ api.peRatio }}</br>
-        52WK high: ${{ api.week52High }}</br>
-        52WK low: ${{api.week52Low }}</br>
-        <!-- {% for key, value in api.items %}
-            {{ key }} : {{ value }}<br/>
-        {% endfor %} -->
-
+    {% if ticker %}
+        {{ ticker }}
     {% endif %}
-{% endif %}
+
+
+    <br/>
+    {% if financials_data %}
+        {% if financials_data == "Error..." %}
+            These was a problem with your ticker symbol, please try again...
+        {% else %}
+            <h1>{{ financials_data.Company }}</h1><br/>
+            <h4>Current Price: {{ financials_data|get:"Current Price"}}</h4>
+            <h4>Post Market Price: {{ financials_data|get:"Post Market Price"}}</h4>
+            <h6><a href={{ financials_data|get:"Latest SEC Filing"}} target="_blank">  Latest SEC filing </a></h6>
+
+            <table width=100%>
+                <td valign='top'>
+                    <p>
+                    <h4>Overview</h4>
+                    <strong>Sector:</strong> {{ financials_data|get:"Sector"}}<br>
+                    <strong>Industry:</strong> {{ financials_data|get:"Industry"}}<br>
+                    <strong>Enterprise Value:</strong> {{ financials_data|get:"Enterprise Value"}}<br>
+                    <strong>Market Cap:</strong> {{ financials_data|get:"Market Cap"}}<br>
+                    <strong>Avg Volume:</strong> {{ financials_data|get:"Average Volume"}}<br>
+                    <strong>Beta:</strong> {{ financials_data|get:"Beta"}}<br>
+                    <strong>Dividend Yield:</strong> {{ financials_data|get:"Trailing Annual Dividend Yield"}}<br>
+                    <strong>50-Day Avg Price:</strong> {{ financials_data|get:"50 Day Avg"}}<br>
+                    <strong>200-Day Avg Price:</strong> {{ financials_data|get:"200 Day Avg"}}
+
+                    </p>
+                </td>
+                <td valign='top'>
+                    <p>
+                    <h4>Profitability & Growth</h4>
+                    <strong>Cash Per Share:</strong> {{ financials_data|get:"Total Cash Per Share"}}<br/>
+                    <strong>EPS(Trailing):</strong> {{ financials_data|get:"Trailing EPS"}}<br/>
+                    <strong>EPS(Forward):</strong> {{ financials_data|get:"Forward EPS"}}<br/>
+                    <strong>Gross Margins:</strong> {{ financials_data|get:"Gross Margins"}}<br/>
+                    <strong>Operating Margins:</strong> {{ financials_data|get:"Operating Margins"}}<br/>
+                    <strong>Profit Margins:</strong> {{ financials_data|get:"Profit Margins"}}<br/>
+                    <strong>Revenue Growth</strong> {{ financials_data|get:"Revenue Growth"}}<br/>
+                    <strong>Earnings Quarterly Growth:</strong> {{ financials_data|get:"Earnings Quarterly Growth"}}
+                    </p>
+                </td>
+                <td valign='top'>
+                    <p>
+                    <h4>Valuation</h4>
+                    <strong>PEG:</strong> {{ financials_data|get:"PEG"}}<br/>
+                    <strong>P/E (Trailing):</strong> {{ financials_data|get:"P/E (Trailing)"}}<br/>
+                    <strong>P/E (Forward):</strong> {{ financials_data|get:"P/E (Forward)"}}<br/>
+                    <strong>P/S:</strong> {{ financials_data|get:"P/S (TTM)"}}<br/>
+                    <strong>P/B:</strong> {{ financials_data|get:"P/B"}}<br/>
+                    <strong>EV/EBITDA:</strong> {{ financials_data|get:"EV/EBITDA"}}<br/>
+                    <strong>EV/Revenue:</strong> {{ financials_data|get:"EV/Revenue"}}
+                    </p>
+                </td>
+                >
+                <td valign='top'>
+                    <p>
+                    <h4>Price Target</h4>
+                    <strong>Price Target (Low):</strong> {{ financials_data|get:"Target Low Price"}}<br/>
+                    <strong>Price Target (Median):</strong> {{ financials_data|get:"Target Median Price"}}<br/>
+                    <strong>Price Target (High):</strong> {{ financials_data|get:"Target High Price"}}<br/>
+                    <strong>Yahoo Recommendation Mean (1-5):</strong>
+                    {{ financials_data|get:"Recommendation Mean"}}<br/>
+                    </p>
+
+                </td>
+            </table>
+            <br/>
+            <p>{{ financials_data|get:"Long Business Summary"}}</p>
+        {% endif %}
+    {% endif %}
+
 
 {% endblock %}

@@ -5,6 +5,7 @@ beautifulsoup4==4.9.3
 certifi==2020.12.5
 chardet==4.0.0
 chromedriver==2.24.1
+coverage==5.5
 Django==3.1.7
 flake8==3.7.9
 idna==2.10

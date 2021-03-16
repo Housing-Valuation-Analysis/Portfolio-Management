@@ -1,4 +1,6 @@
 # pylint: disable=too-few-public-methods
+# pylint: disable=relative-beyond-top-level
+
 """Module containing the forms"""
 from django import forms
 from .models import Stock
@@ -9,4 +11,4 @@ class StockForm(forms.ModelForm):
     class Meta:
         """Meta class for stock"""
         model = Stock
-        fields = ["ticker"]
+        fields = ["ticker", 'entry_price', 'entry_date', 'shares']

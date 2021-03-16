@@ -1,61 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% load get %}
 
-<h1>Dashboard</h1>
-</br>
+    <h1>Dashboard</h1>
+    </br>
 
+    <form action="{% url 'dashboard' %}" class="d-flex" method="POST">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Which Stock?" aria-label="Search" name="ticker"
+               required>
+        <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price">
+        <input class="form-control me-2" type="date" name="entry_date">
+        <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares">
+        <button class="btn btn-outline-success" type="submit">Add Stock</button>
+    </form>
+    </br>
+    <div style="overflow: scroll;">
+        <table class="table table-hover">
+            <thead class="table table-dark">
+            <tr>
+                <th scope="col">Stock Ticker</th>
+                <th scope="col">Cost Basis</th>
+                <th scope="col">Purchase Date</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Industry</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Beta</th>
+                <th scope="col">PEG</th>
+                <th scope="col">P/E (Trailing)</th>
+                <th scope="col">P/E (Forward)</th>
+                <th scope="col">P/B</th>
+                <th scope="col">EV/EBITDA</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if ticker %}
+                {% for financials, tickers, price, date, share, obj in zip_list %}
+                    <tr>
+                        <th scope="row">{{ tickers }}</th>
+                        <td>{{ price }}</td>
+                        <td>{{ date }}</td>
+                        <td>{{ share }}</td>
+                        <td>{{ financials|get:"Sector"}}</td>
+                        <td>{{ financials|get:"Industry"}}</td>
+                        <td>{{ financials|get:"Current Price"}}</td>
+                        <td>{{ financials|get:"Beta"}}</td>
+                        <td>{{ financials|get:"PEG"}}</td>
+                        <td>{{ financials|get:"P/E (Trailing)"}}</td>
+                        <td>{{ financials|get:"P/E (Forward)"}}</td>
+                        <td>{{ financials|get:"P/B"}}</td>
+                        <td>{{ financials|get:"EV/EBITDA"}}</td>
+                        <td><a href="{% url 'delete' obj.id %}" type="button"
+                               class="btn btn-danger">Delete</a></button> </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                You don't have any stocks.
+            {% endif %}
+        </table>
+    </div>
 
-<form action="{% url 'dashboard' %}" class="d-flex" method="POST">
-    {% csrf_token %}
-    <input class="form-control me-2" type="search" placeholder="Get Stock Quote" aria-label="Search" name="ticker" required>
-    <button class="btn btn-outline-success" type="submit">Add Stock </button>
-  </form>
-</br>
+    <form action="{% url 'download' %}" class="d-flex" method="POST">
+        {% csrf_token %}
+        <button href="{% url 'download' %}" class="btn btn-success" type="submit">Download</button>
+    </form>
 
-  <table class="table table-hover">
-    <thead class="table table-dark">
-      <tr>
-        <th scope="col">Company Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Previous Close</th>
-        <th scope="col">Market Cap</th>
-        <th scope="col">YTD Change</th>
-        <th scope="col">PE Ratio</th>
-        <th scope="col">52WK high</th>
-        <th scope="col">52WK low</th>
-        <!-- <th scope="col">Delete</th> -->
-      </tr>
-    </thead>
-    <tbody>
-{% if ticker %}
-          {% for list_item in output %}
-          <tr>
-            <th scope="row">{{list_item.companyName}}</th>
-            <td>{{ list_item.latestPrice }}</td>
-            <td>${{ list_item.previousClose }}</td>
-            <td>${{ list_item.marketCap }}</td>
-            <td>{{ list_item.ytdChange }}</td>
-            <td>${{ list_item.peRatio }}</td>
-            <td>${{ list_item.week52High }}</td>
-            <td>${{ list_item.week52Low }}</td>
-            <td></td>
-      </tr>
-          {% endfor %}
-
-
-{% endif %}
-    </tbody>
-  </table>
-
-{% if ticker %}
-    {%  for item in ticker %}
-    <!-- <button type="button" class="btn btn-primary">{{item}}</button>
-    <button href="{% url 'delete' item.id %}" type="button" class="btn btn-danger">Delete</button> -->
-    <a href="{% url 'delete' item.id %}" type="button" class="btn btn-danger">Delete {{item}}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-    {% endfor %}
-{% else %}
-  You don't have any stocks.
-  {% endif %}
 
 {% endblock %}
