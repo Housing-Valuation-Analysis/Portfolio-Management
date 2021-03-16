@@ -56,6 +56,12 @@ def about_view(request):
 def dashboard_view(request):
     """The dashboard view"""
     if request.method == "POST":
+        ticker = request.POST['ticker']
+        try:
+            financials_data = retrieve_by_scraper(Scraper(ticker))
+        except Exception as exc:
+            messages.error(request, exc.message)
+            return redirect('dashboard')
 
         form = StockForm(request.POST or None)
 
