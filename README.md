@@ -14,7 +14,9 @@ Welcome to the README file for our project! This goal of this project is to crea
 ### Usage
 
 The way this project will interact with its users is as follows: A user will enter from the web interface and be greeted with an input menu. From there there are two 'use cases' that can happen based on user preference.
+
 First is a more detailed view of a single stock. The user can type in a ticker symbol of the company they want more specific infomration on. Once a ticker is inputted, the web interface sends that ticker to our scraper which finds the data and sends it back to the web interface where it is then displayed. This format lends itself nicely for doing deep dives on one particular stock and making an informed purchase decision.
+
 The second use case involves comparing the stocks of multiple companies at the same time. Here, as before, the user input tells the scraper which stock to retrieve information on, but this time, the information in stored in a dashboard with the most prominent features on display. This format lends itself nicely for comparisons between multiple companies and making choices to decide which company to invest in. 
 
 ### Features
@@ -74,6 +76,15 @@ Admin link:
 
 ```
 http://127.0.0.1:8000/admin
+```
+#### Extra code
+To run unit tests make sure you are in `Portfolio-Management` and the following code will run unit tests in `Portfolio-Management/scraping` and `Portfolio-Management/stocks`, respectively.
+
+```
+coverage run --source=scraping -m pytest --ignore=stocks/quotes/tests/test_views.py
+```
+```
+coverage run --source=quotes --omit='quotes/migrations/*','quotes/templatetags/*',quotes/apps.py,quotes/models.py,quotes/views.py -m manage test
 ```
 
 ### Organization
