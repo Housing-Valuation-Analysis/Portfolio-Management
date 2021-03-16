@@ -19,11 +19,33 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Stock',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ticker', models.CharField(max_length=10, unique=True)),
-                ('entry_price', models.DecimalField(blank=True, decimal_places=2, default=0, max_digits=10)),
-                ('entry_date', models.DateField(blank=True, default=datetime.date.today)),
-                ('shares', models.DecimalField(blank=True, decimal_places=3, default=0, max_digits=10, null=0)),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')
+                ),  # noqa: E124
+                ('ticker', models.CharField(
+                    max_length=10,
+                    unique=True)
+                ),  # noqa: E124
+                ('entry_price', models.DecimalField(
+                    blank=True,
+                    decimal_places=2,
+                    default=0,
+                    max_digits=10)
+                ),  # noqa: E124
+                ('entry_date', models.DateField(
+                    blank=True,
+                    default=datetime.date.today)
+                ),  # noqa: E124
+                ('shares', models.DecimalField(
+                    blank=True,
+                    decimal_places=3,
+                    default=0,
+                    max_digits=10,
+                    null=0)
+                ),  # noqa: E124
             ],
         ),
     ]
