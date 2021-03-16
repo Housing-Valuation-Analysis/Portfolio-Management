@@ -1,3 +1,7 @@
+# pylint: disable=wrong-import-order, wrong-import-position, import-error
+# pylint: disable=missing-function-docstring
+# pylint: disable=unused-argument, unused-import
+
 """Module containing the tests for the website integration with scraper"""
 
 import os
@@ -5,7 +9,9 @@ import sys
 import unittest
 
 from django.test import TestCase
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname("Portfolio-Management-branch"), '..')))
+sys.path.insert(0,
+    os.path.abspath(os.path.join(
+        os.path.dirname("Portfolio-Management-branch"), '..')))
 from scraping import Scraper
 from scraping.clients import Requester
 from ..viewsController import retrieve_by_scraper

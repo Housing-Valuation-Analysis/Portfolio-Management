@@ -1,3 +1,5 @@
+# pylint: disable=too-many-instance-attributes
+
 """Module containing scraper class used to scrape data
 about provided ticker symbol"""
 
@@ -123,15 +125,3 @@ class Scraper:
             'financials': self.financials_dict,
             'sec_filings': self.sec_filing_list
         }
-
-'''
-if __name__ == "__main__":
-    s = Scraper('MSFT')
-    data = s.scrape_all_data()
-    # print(data.keys())
-    # print(data)
-    # print(data["financials"])
-    for key, val in data["financials"].items():
-        print(key + ":" + val)
-    # print(data['sec_filings'])
-'''
