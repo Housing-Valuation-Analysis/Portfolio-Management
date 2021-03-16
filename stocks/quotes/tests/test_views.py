@@ -46,10 +46,8 @@ class TestScraper(TestCase):
         """Gets the test scraper"""
         return Scraper(TEST_TICKER, requester)
 
-    def empty_function(self):
-        pass
-
     def test_retrieve_from_scraper(self):
+        """Tests the website get correct information from scraper module."""
         test_data = os.path.join(
             self.data_dir,
             VALID_KEY_STATISTICS_URL_TEXT_FILE_NAME)

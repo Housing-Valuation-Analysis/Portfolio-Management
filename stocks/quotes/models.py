@@ -26,6 +26,7 @@ class Stock(models.Model):
         blank=True)
 
     def __str__(self):
+        "Overwrite default method to provide string output, to display"
         return '{}{}{}{}{}{}{}'.format(
             self.ticker, ',',
             self.entry_price, ',',
@@ -33,4 +34,5 @@ class Stock(models.Model):
             self.shares)
 
     def clean(self):
+        "Formatting ticker to display"
         self.ticker = self.ticker.upper()

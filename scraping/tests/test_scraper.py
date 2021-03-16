@@ -38,6 +38,7 @@ class TestScraper(unittest.TestCase):
         requester = Requester()
 
         def get_local_page_text(placeholder):
+            "Simply reads texts from files instead of from HTTP, for testing purpose"
             with open(file_to_read_text_from, 'r') as file:
                 text = file.read()
                 return text
