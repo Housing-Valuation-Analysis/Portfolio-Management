@@ -33,7 +33,7 @@ def home_view(request):
             financials_data = retrieve_by_scraper(Scraper(ticker))
         except Exception as exc:
             messages.error(request, exc.message)
-            return redirect('dashboard')
+            return redirect('home')
         return render(
             request,
             'home.html',
@@ -43,7 +43,7 @@ def home_view(request):
         request,
         'home.html',
         {
-            'ticker': "Enter a ticker symbol above"
+            'ticker': "Please lookup a single stock on the top right corner, or proceed to dashboard."
         }
     )
 
