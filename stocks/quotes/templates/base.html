@@ -40,7 +40,7 @@
             </ul>
             <form action="{% url 'home' %}" class="d-flex" method="POST">
                 {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="Get Stock Quote" aria-label="Search"
+                <input class="form-control me-2" type="search" placeholder="What stock do you want to lookup? (ex. MSFT)" aria-label="Search"
                        name="ticker" required>
                 <button class="btn btn-outline-success" type="submit">Stock Quote</button>
             </form>
