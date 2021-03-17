@@ -1,6 +1,6 @@
 # pylint: disable=wrong-import-order, wrong-import-position, import-error
 # pylint: disable=missing-function-docstring
-# pylint: disable=no-member
+# pylint: disable=no-member, line-too-long
 # pylint: disable=relative-beyond-top-level
 # pylint: disable=broad-except
 # pylint: disable=too-many-locals
@@ -129,12 +129,12 @@ def download_csv(request):
 
     writer = csv.writer(response, delimiter=',')
     writer.writerow([
+        'Stock Ticker',
+        'Cost Basis',
+        'Purchase Date',
+        'Shares',
         'Sector',
         'Industry',
-        'Stock Ticker',
-        'Entry Price',
-        'Entry Date',
-        'Shares',
         'Current Price',
         'Beta',
         'PEG',
@@ -155,12 +155,12 @@ def download_csv(request):
             return redirect('dashboard')
 
         writer.writerow([
-            financials_data['Sector'],
-            financials_data['Industry'],
             str(ticker_item),
             price[i],
             date[i],
             share[i],
+            financials_data['Sector'],
+            financials_data['Industry'],
             financials_data['Current Price'],
             financials_data.get('Beta'),
             financials_data['PEG'],
