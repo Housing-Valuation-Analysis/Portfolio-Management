@@ -12,7 +12,12 @@
         {% if user.username %}
             <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price">
             <input class="form-control me-2" type="date" name="entry_date">
-            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares">
+            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares"> 
+        {% else %}
+
+            <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price" disabled>
+            <input class="form-control me-2" type="date" name="entry_date" disabled>
+            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares" disabled>
         {% endif %}
         <button class="btn btn-outline-success" type="submit">Add Stock</button>
     </form>
@@ -22,53 +27,98 @@
         <p><strong>*</strong>Please 'Login' to access dashboard features</p>
     {% endif %}
     </br>
-    <div style="overflow: scroll;">
-        <table class="table table-hover">
-            <thead class="table table-dark">
-            <tr>
-                <th scope="col">Stock Ticker</th>
-                <th scope="col">Cost Basis</th>
-                <th scope="col">Purchase Date</th>
-                <th scope="col">Shares</th>
-                <th scope="col">Sector</th>
-                <th scope="col">Industry</th>
-                <th scope="col">Current Price</th>
-                <th scope="col">Beta</th>
-                <th scope="col">PEG</th>
-                <th scope="col">P/E (Trailing)</th>
-                <th scope="col">P/E (Forward)</th>
-                <th scope="col">P/B</th>
-                <th scope="col">EV/EBITDA</th>
-                <th scope="col">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if ticker %}
-                {% for financials, tickers, price, date, share, obj in zip_list %}
-                    <tr>
-                        <th scope="row">{{ tickers }}</th>
-                        <td>{{ price }}</td>
-                        <td>{{ date }}</td>
-                        <td>{{ share }}</td>
-                        <td>{{ financials|get:"Sector"}}</td>
-                        <td>{{ financials|get:"Industry"}}</td>
-                        <td>{{ financials|get:"Current Price"}}</td>
-                        <td>{{ financials|get:"Beta"}}</td>
-                        <td>{{ financials|get:"PEG"}}</td>
-                        <td>{{ financials|get:"P/E (Trailing)"}}</td>
-                        <td>{{ financials|get:"P/E (Forward)"}}</td>
-                        <td>{{ financials|get:"P/B"}}</td>
-                        <td>{{ financials|get:"EV/EBITDA"}}</td>
-                        <td><a href="{% url 'delete' obj.id %}" type="button"
-                               class="btn btn-danger">Delete</a></button> </td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                You don't have any stocks.
-            {% endif %}
-        </table>
-    </div>
-    </br>
+
+    {% if user.username %}
+        <div style="overflow: scroll;">
+            <table class="table table-hover">
+                <thead class="table table-dark">
+                <tr>
+                    <th scope="col">Stock Ticker</th>
+                    <th scope="col">Cost Basis</th>
+                    <th scope="col">Purchase Date</th>
+                    <th scope="col">Shares</th>
+                    <th scope="col">Sector</th>
+                    <th scope="col">Industry</th>
+                    <th scope="col">Current Price</th>
+                    <th scope="col">Beta</th>
+                    <th scope="col">PEG</th>
+                    <th scope="col">P/E (Trailing)</th>
+                    <th scope="col">P/E (Forward)</th>
+                    <th scope="col">P/B</th>
+                    <th scope="col">EV/EBITDA</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if ticker %}
+                    {% for financials, tickers, price, date, share, obj in zip_list %}
+                        <tr>
+                            <th scope="row">{{ tickers }}</th>
+                            <td>{{ price }}</td>
+                            <td>{{ date }}</td>
+                            <td>{{ share }}</td>
+                            <td>{{ financials|get:"Sector"}}</td>
+                            <td>{{ financials|get:"Industry"}}</td>
+                            <td>{{ financials|get:"Current Price"}}</td>
+                            <td>{{ financials|get:"Beta"}}</td>
+                            <td>{{ financials|get:"PEG"}}</td>
+                            <td>{{ financials|get:"P/E (Trailing)"}}</td>
+                            <td>{{ financials|get:"P/E (Forward)"}}</td>
+                            <td>{{ financials|get:"P/B"}}</td>
+                            <td>{{ financials|get:"EV/EBITDA"}}</td>
+                            <td><a href="{% url 'delete' obj.id %}" type="button"
+                                   class="btn btn-danger">Delete</a></button> </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    You don't have any stocks.
+                {% endif %}
+            </table>
+        </div>
+    {% else %}
+        <div style="overflow: scroll;">
+            <table class="table table-hover">
+                <thead class="table table-dark">
+                <tr>
+                    <th scope="col">Stock Ticker</th>
+                    <th scope="col">Sector</th>
+                    <th scope="col">Industry</th>
+                    <th scope="col">Current Price</th>
+                    <th scope="col">Beta</th>
+                    <th scope="col">PEG</th>
+                    <th scope="col">P/E (Trailing)</th>
+                    <th scope="col">P/E (Forward)</th>
+                    <th scope="col">P/B</th>
+                    <th scope="col">EV/EBITDA</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if ticker %}
+                    {% for financials, tickers, price, date, share, obj in zip_list %}
+                        <tr>
+                            <th scope="row">{{ tickers }}</th>
+                            <td>{{ financials|get:"Sector"}}</td>
+                            <td>{{ financials|get:"Industry"}}</td>
+                            <td>{{ financials|get:"Current Price"}}</td>
+                            <td>{{ financials|get:"Beta"}}</td>
+                            <td>{{ financials|get:"PEG"}}</td>
+                            <td>{{ financials|get:"P/E (Trailing)"}}</td>
+                            <td>{{ financials|get:"P/E (Forward)"}}</td>
+                            <td>{{ financials|get:"P/B"}}</td>
+                            <td>{{ financials|get:"EV/EBITDA"}}</td>
+                            <td><a href="{% url 'delete' obj.id %}" type="button"
+                                   class="btn btn-danger">Delete</a></button> </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    You don't have any stocks.
+                {% endif %}
+            </table>
+        </div>
+    {% endif %}
+        </br>
+
 
     <form action="{% url 'download' %}" class="d-flex" method="POST">
         {% csrf_token %}
