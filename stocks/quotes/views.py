@@ -43,7 +43,7 @@ def home_view(request):
         request,
         'home.html',
         {
-            'ticker': "Please lookup a single stock on the top right corner, or proceed to dashboard."
+            'ticker': "Please lookup a single stock on the top right corner, or proceed to dashboard."  # noqa: E501
         }
     )
 
