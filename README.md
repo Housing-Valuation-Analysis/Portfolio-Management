@@ -3,7 +3,7 @@
 ### Status: [![Build Status](https://travis-ci.com/Housing-Valuation-Analysis/Portfolio-Management.svg?branch=main)](https://travis-ci.com/Housing-Valuation-Analysis/Portfolio-Management)
 
 
-### Last Edit: 3/15/21
+### Last Edit: 3/16/21
 
 ## Contributors: Jack Chen, William Frame, Vincent Lan, Aniruddha Dutta, Junhao Zhang, Samuel Perebikovsky
 
@@ -95,35 +95,74 @@ coverage run --source=quotes --omit='quotes/migrations/*','quotes/templatetags/*
 This project is organized as follows:
 ```
 Portfolio-Management/  
+├── Doc
+│   └── FinalPresentation.pdf
 |- .gitignore  
-|- .travis.yml  
-|- README.md  
-|- __init__.py  
-|- requirements.txt  
-|- scrapingR1.ipynb  
-|- scraping/  
-   |- __init__.py  
-   |- clients.py  
-   |- constants.py  
-   |- errors.py  
-   |- metrics_string_process.py  
-   |- scraper.py  
-   |- tests/  
-      |- __init__.py  
-      |- test_scraper.py  
-      |- data/  
-         |- ...  
-|- stocks/  
-   |- __init__.py  
-   |- db.sqlite3  
-   |- errors.py  
-   |- manage.py  
-   |- quotes/ 
-      |- ...  
-      |- templates/  
-         |- ...  
-   |- stocks/  
-      |- ...  
+|- .travis.yml 
+├── README.md
+├── __init__.py
+├── requirements.txt
+├── run_program.sh
+├── scraping
+│   ├── __init__.py
+│   ├── clients.py
+│   ├── constants.py
+│   ├── errors.py
+│   ├── metrics_string_process.py
+│   ├── scraper.py
+│   └── tests
+│       ├── __init__.py
+│       ├── data
+│       │   ├── invalid_key_statistics_url_text.html
+│       │   ├── invalid_key_statistics_url_text_no_financial_data.html
+│       │   ├── invalid_profile_url_text.html
+│       │   ├── invalid_profile_url_text_no_sec_filings.html
+│       │   ├── valid_key_statistics_url_text.html
+│       │   └── valid_profile_url_text.html
+│       └── test_scraper.py
+├── setup.py
+└── stocks
+    ├── __init__.py
+    ├── db.sqlite3
+    ├── errors.py
+    ├── manage.py
+    ├── quotes
+    │   ├── __init__.py
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── dashboard.html
+    │   ├── forms.py
+    │   ├── migrations
+    │   │   ├── 0001_initial.py
+    │   │   └── __init__.py
+    │   ├── models.py
+    │   ├── templates
+    │   │   ├── about.html
+    │   │   ├── base.html
+    │   │   ├── dashboard.html
+    │   │   ├── home.html
+    │   │   └── registration
+    │   │       ├── login.html
+    │   │       └── register.html
+    │   ├── templatetags
+    │   │   ├── __init__.py
+    │   │   └── get.py
+    │   ├── tests
+    │   │   ├── __init__.py
+    │   │   ├── data
+    │   │   │   ├── valid_key_statistics_url_text.html
+    │   │   │   └── valid_profile_url_text.html
+    │   │   └── test_views.py
+    │   ├── urls.py
+    │   ├── views.py
+    │   └── viewsController.py
+    └── stocks
+        ├── __init__.py
+        ├── asgi.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
+
 ```
 
 _____________________________________________________________________________________________
