@@ -12,12 +12,7 @@
         {% if user.username %}
             <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price">
             <input class="form-control me-2" type="date" name="entry_date">
-            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares"> 
-        {% else %}
-
-            <input class="form-control me-2" type="number" placeholder="Cost Basis"  name="entry_price" disabled>
-            <input class="form-control me-2" type="date" name="entry_date" disabled>
-            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares" disabled>
+            <input class="form-control me-2" type="number" placeholder="How Many Shares Do You Own?"  name="shares">
         {% endif %}
         <button class="btn btn-outline-success" type="submit">Add Stock</button>
     </form>
