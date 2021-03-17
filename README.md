@@ -81,7 +81,6 @@ http://127.0.0.1:8000/admin
 To run unit tests make sure you are in `Portfolio-Management` and the following code will run unit tests in `Portfolio-Management/scraping` and `Portfolio-Management/stocks`, respectively.
 
 ```
-cd scraping
 coverage run --source=scraping -m pytest --ignore=stocks/quotes/tests/test_views.py
 ```
 
